@@ -127,6 +127,7 @@ const updateProductById = async (req, res) => {
                 deadline: req.body.deadline,
                 salary: req.body.salary,
                 location: req.body.location,
+                contactNumber: req.body.contactNumber,
             },
             { new: true }
         );

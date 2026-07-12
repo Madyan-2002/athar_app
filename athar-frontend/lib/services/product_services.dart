@@ -35,53 +35,52 @@ class ProductServices {
   }
 
   Future<bool> createProduct({
-    required String title,
-    required String description,
-    required String type,
-    String? categoryId,
-    double? price,
-    int? stock,
-    double? targetAmount,
-    DateTime? deadline,
-    double? salary,
-    String? location,
-    required String contactNumber,
-    required File image,
-  }) async {
-    final token = await TokenServices().getToken();
+  required String title,
+  required String description,
+  required String type,
+  String? categoryId,
+  double? price,
+  int? stock,
+  double? targetAmount,
+  DateTime? deadline,
+  double? salary,
+  String? location,
+  required String contactNumber,
+  required File image,
+}) async {
+  final token = await TokenServices().getToken();
 
-    final request = http.MultipartRequest(
-      'POST',
-      Uri.parse("${ApiConstant.baseUrl}/products"),
-    );
-    request.headers['Authorization'] = 'Bearer $token';
-    request.fields['title'] = title;
-    request.fields['description'] = description;
-    request.fields['type'] = type;
+  final request = http.MultipartRequest(
+    'POST',
+    Uri.parse("${ApiConstant.baseUrl}/products"),
+  );
+  request.headers['Authorization'] = 'Bearer $token';
+  request.fields['title'] = title;
+  request.fields['description'] = description;
+  request.fields['type'] = type;
+  request.fields['contactNumber'] = contactNumber; // ← أضف هالسطر
 
-    if (categoryId != null) request.fields['category'] = categoryId;
-    if (price != null) request.fields['price'] = price.toString();
-    if (stock != null) request.fields['stock'] = stock.toString();
-    if (targetAmount != null) {
-      request.fields['targetAmount'] = targetAmount.toString();
-    }
-    if (deadline != null) {
-      request.fields['deadline'] = deadline.toIso8601String();
-    }
-    if (salary != null) request.fields['salary'] = salary.toString();
-    if (location != null) request.fields['location'] = location;
-
-    request.files.add(await http.MultipartFile.fromPath('image', image.path));
-
-    final response = await request.send();
-    final body = await response.stream.bytesToString();
-    print("Create status: ${response.statusCode}");
-    print("Create body: $body");
-    
-
-    return response.statusCode == 201;
+  if (categoryId != null) request.fields['category'] = categoryId;
+  if (price != null) request.fields['price'] = price.toString();
+  if (stock != null) request.fields['stock'] = stock.toString();
+  if (targetAmount != null) {
+    request.fields['targetAmount'] = targetAmount.toString();
   }
+  if (deadline != null) {
+    request.fields['deadline'] = deadline.toIso8601String();
+  }
+  if (salary != null) request.fields['salary'] = salary.toString();
+  if (location != null) request.fields['location'] = location;
 
+  request.files.add(await http.MultipartFile.fromPath('image', image.path));
+
+  final response = await request.send();
+  final body = await response.stream.bytesToString();
+  print("Create status: ${response.statusCode}");
+  print("Create body: $body");
+
+  return response.statusCode == 201;
+}
   Future<bool> updateProduct({
     required String id,
     required String title,
@@ -100,6 +99,7 @@ class ProductServices {
     final body = <String, dynamic>{
       'title': title,
       'description': description,
+      'contactNumber': contactNumber,
       if (price != null) 'price': price,
       if (stock != null) 'stock': stock,
       if (categoryId != null) 'category': categoryId,

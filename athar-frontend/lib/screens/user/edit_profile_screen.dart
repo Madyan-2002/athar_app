@@ -17,7 +17,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
@@ -47,12 +48,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     try {
       await context.read<AuthProvider>().updateProfile(
-            name: _nameController.text.trim(),
-            email: _emailController.text.trim(),
-            password: _passwordController.text.trim().isEmpty
-                ? null
-                : _passwordController.text.trim(),
-          );
+        name: _nameController.text.trim(),
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim().isEmpty
+            ? null
+            : _passwordController.text.trim(),
+      );
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -79,30 +80,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: AppColors.primaryDark,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
+        ),
+        centerTitle: true,
+        title: Text(
+          'تعديل الملف الشخصي',
+          style: TextStyle(
+            color: AppColors.textOnPrimary,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: Column(
         children: [
-          Container(
-            width: double.infinity,
-            color: AppColors.primaryDark,
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
-                ),
-                const SizedBox(width: 4),
-                const Text(
-                  'تعديل الملف الشخصي',
-                  style: TextStyle(
-                    color: AppColors.textOnPrimary,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),
@@ -113,7 +108,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   children: [
                     const Text(
                       'الاسم الكامل',
-                      style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                     const SizedBox(height: 6),
                     CustomTextField(
@@ -134,7 +132,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                     const Text(
                       'البريد الإلكتروني',
-                      style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                     const SizedBox(height: 6),
                     CustomTextField(
@@ -165,7 +166,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                     const Text(
                       'كلمة المرور الجديدة',
-                      style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                     const SizedBox(height: 6),
                     CustomTextField(
@@ -175,12 +179,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       obscureText: _obscurePassword,
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                          _obscurePassword
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined,
                         ),
-                        onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                        onPressed: () => setState(
+                          () => _obscurePassword = !_obscurePassword,
+                        ),
                       ),
                       validator: (value) {
-                        if (value != null && value.isNotEmpty && value.length < 8) {
+                        if (value != null &&
+                            value.isNotEmpty &&
+                            value.length < 8) {
                           return 'كلمة المرور يجب أن تكون 8 أحرف على الأقل';
                         }
                         return null;
@@ -190,7 +200,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                     const Text(
                       'تأكيد كلمة المرور الجديدة',
-                      style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                     const SizedBox(height: 6),
                     CustomTextField(
@@ -204,8 +217,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
                         ),
-                        onPressed: () =>
-                            setState(() => _obscureConfirmPassword = !_obscureConfirmPassword),
+                        onPressed: () => setState(
+                          () => _obscureConfirmPassword =
+                              !_obscureConfirmPassword,
+                        ),
                       ),
                       validator: (value) {
                         if (_passwordController.text.isEmpty) return null;
@@ -224,8 +239,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         onPressed: _isLoading ? null : _handleSave,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryDark,
-                          disabledBackgroundColor: AppColors.primaryDark.withOpacity(0.5),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          disabledBackgroundColor: AppColors.primaryDark
+                              .withOpacity(0.5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                         child: _isLoading
                             ? const SizedBox(
@@ -238,7 +256,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               )
                             : const Text(
                                 'حفظ التغييرات',
-                                style: TextStyle(color: AppColors.textOnPrimary, fontSize: 15),
+                                style: TextStyle(
+                                  color: AppColors.textOnPrimary,
+                                  fontSize: 15,
+                                ),
                               ),
                       ),
                     ),

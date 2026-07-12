@@ -49,8 +49,13 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('حذف الكل', style: TextStyle(fontWeight: FontWeight.bold)),
-        content: const Text('هل أنت متأكد من رغبتك في إزالة جميع العناصر من المفضلة؟'),
+        title: const Text(
+          'حذف الكل',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        content: const Text(
+          'هل أنت متأكد من رغبتك في إزالة جميع العناصر من المفضلة؟',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
@@ -70,7 +75,9 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('فشل حذف العناصر من السيرفر، يرجى المحاولة لاحقاً'),
+                      content: Text(
+                        'فشل حذف العناصر من السيرفر، يرجى المحاولة لاحقاً',
+                      ),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -87,42 +94,46 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
   @override
   Widget build(BuildContext context) {
     final favoriteIds = context.watch<FavoriteProvider>().favoriteIds;
-    final visibleProducts =
-        _products.where((p) => favoriteIds.contains(p.id)).toList();
+    final visibleProducts = _products
+        .where((p) => favoriteIds.contains(p.id))
+        .toList();
 
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.primaryDark,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        titleSpacing: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.light, 
-        title: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textOnPrimary, size: 20),
-              onPressed: () => Navigator.pop(context),
-            ),
-            const SizedBox(width: 4),
-            const Text(
-              'المفضلة',
-              style: TextStyle(
-                color: AppColors.textOnPrimary,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Spacer(),
-            if (visibleProducts.isNotEmpty)
-              IconButton(
-                icon: const Icon(Icons.delete_sweep_rounded, color: AppColors.textOnPrimary, size: 26),
-                tooltip: 'حذف جميع العناصر',
-                onPressed: () => _clearAllFavorites(context),
-              ),
-            const SizedBox(width: 8),
-          ],
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColors.textOnPrimary,
+            size: 20,
+          ),
+          onPressed: () => Navigator.pop(context),
         ),
+        centerTitle: true,
+        title: const Text(
+          'المفضلة',
+          style: TextStyle(
+            color: AppColors.textOnPrimary,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          if (visibleProducts.isNotEmpty)
+            IconButton(
+              icon: const Icon(
+                Icons.delete_sweep_rounded,
+                color: AppColors.textOnPrimary,
+                size: 26,
+              ),
+              tooltip: 'حذف جميع العناصر',
+              onPressed: () => _clearAllFavorites(context),
+            ),
+          const SizedBox(width: 8),
+        ],
+
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Divider(
@@ -148,9 +159,16 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.wifi_off_rounded, size: 48, color: AppColors.textHint),
+            const Icon(
+              Icons.wifi_off_rounded,
+              size: 48,
+              color: AppColors.textHint,
+            ),
             const SizedBox(height: 12),
-            Text(_error!, style: const TextStyle(color: AppColors.textSecondary)),
+            Text(
+              _error!,
+              style: const TextStyle(color: AppColors.textSecondary),
+            ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: _loadFavorites,
