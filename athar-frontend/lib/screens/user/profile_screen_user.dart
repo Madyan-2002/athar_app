@@ -263,7 +263,6 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                   ),
                   const SizedBox(height: 20),
                   
-                  // زر تسجيل الخروج باللون الأحمر والكتابة البيضاء ثابته
                   SizedBox(
                     width: double.infinity,
                     height: 54,
