@@ -9,7 +9,12 @@ class NotificationsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
+        ),
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColors.primary,

@@ -87,7 +87,7 @@ const createProduct = async (req, res) => {
             deadline: req.body.deadline || undefined,
             salary: req.body.salary || undefined,
             location: req.body.location || undefined,
-            image: req.file ? [req.file.filename] : [],
+            image: req.file ? [req.file.path] : [],
             createdBy: req.user.userId,
             contactNumber: req.body.contactNumber,
         });

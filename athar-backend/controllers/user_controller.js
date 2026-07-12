@@ -170,7 +170,7 @@ const updateMyProfile = async (req, res) => {
         }
 
         if (req.file) {
-            updateData.image = req.file.filename;
+            updateData.image = req.file.path; 
         }
 
         const updatedUser = await userModel.findByIdAndUpdate(

@@ -7,24 +7,26 @@ class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.product});
 
   static String getImageUrl(String imagePath) {
-    if (imagePath.startsWith('http')) {
-      return imagePath;
-    }
-
-    if (imagePath.startsWith('/')) {
-      imagePath = imagePath.substring(1);
-    }
-
-    String baseUrl = ApiConstant.baseUrl;
-    if (baseUrl.endsWith('/')) {
-      baseUrl = baseUrl.substring(0, baseUrl.length - 1);
-    }
-
-    if (imagePath.contains('uploads')) {
-      return '$baseUrl/$imagePath';
-    }
-    return '$baseUrl/uploads/$imagePath';
+  // لو الرابط من Cloudinary أصلًا (بيبدأ بـ http)، استخدمه مباشرة
+  if (imagePath.startsWith('http')) {
+    return imagePath;
   }
+
+  // احتياطي للصور القديمة المحلية (لو موجودة)
+  if (imagePath.startsWith('/')) {
+    imagePath = imagePath.substring(1);
+  }
+
+  String baseUrl = ApiConstant.baseUrl;
+  if (baseUrl.endsWith('/')) {
+    baseUrl = baseUrl.substring(0, baseUrl.length - 1);
+  }
+
+  if (imagePath.contains('uploads')) {
+    return '$baseUrl/$imagePath';
+  }
+  return '$baseUrl/uploads/$imagePath';
+}
 
   String _typeLabel() {
     switch (product.type) {
