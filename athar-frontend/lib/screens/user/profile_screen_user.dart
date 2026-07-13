@@ -85,15 +85,12 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // --- الهيدر بالبطاقة ذات التدرج الملون الجديد ---
-            Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.center,
+            // --- الهيدر بالبطاقة العائمة ---
+            Column(
               children: [
-                // الخلفية الملونة المتدرجة في الأعلى
                 Container(
-                  height: 180,
                   width: double.infinity,
+                  padding: const EdgeInsets.only(top: 60, bottom: 70),
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: AppColors.primaryGradient,
@@ -105,25 +102,22 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                     ),
                   ),
                 ),
-                // البطاقة العائمة بألوانها وتدرجها الجديد
-                Positioned(
-                  top: 100, 
+                Transform.translate(
+                  offset: const Offset(0, -70),
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    padding: const EdgeInsets.all(20), // زيادة الحشو لمظهر أكثر اتساعاً
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      // التدرج اللوني الناعم داخل البطاقة نفسها
                       gradient: LinearGradient(
                         colors: [
-                          AppColors.surface, // اللون الأساسي (الأبيض / الفاتح)
-                          AppColors.background.withOpacity(0.4), // رمادي خفيف يندمج مع حافة البطاقة
+                          AppColors.surface,
+                          AppColors.background.withOpacity(0.4),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                       ),
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
-                        // ظل ناعم يحمل لمحة من لون التطبيق لمنحها عمقاً جمالياً
                         BoxShadow(
                           color: AppColors.primary.withOpacity(0.08),
                           blurRadius: 24,
@@ -133,8 +127,8 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                     ),
                     child: Column(
                       children: [
-                        // صورة الشخصية داخل البطاقة
                         Stack(
+                          clipBehavior: Clip.none,
                           children: [
                             Container(
                               padding: const EdgeInsets.all(4),
@@ -146,7 +140,9 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                                 radius: 45,
                                 backgroundColor: AppColors.primaryLight,
                                 backgroundImage: hasImage
-                                    ? NetworkImage(ProductCard.getImageUrl(imageName))
+                                    ? NetworkImage(
+                                        ProductCard.getImageUrl(imageName),
+                                      )
                                     : null,
                                 child: !hasImage
                                     ? const Icon(
@@ -160,36 +156,44 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                             Positioned(
                               bottom: 0,
                               right: 0,
-                              child: GestureDetector(
-                                onTap: _isUploadingImage ? null : _pickAndUploadImage,
-                                child: Container(
-                                  width: 32,
-                                  height: 32,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primaryDark,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(color: Colors.white, width: 2),
-                                  ),
-                                  child: _isUploadingImage
-                                      ? const Padding(
-                                          padding: EdgeInsets.all(6.0),
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2,
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(20),
+                                  onTap: _isUploadingImage
+                                      ? null
+                                      : _pickAndUploadImage,
+                                  child: Container(
+                                    width: 32,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primaryDark,
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 2,
+                                      ),
+                                    ),
+                                    child: _isUploadingImage
+                                        ? const Padding(
+                                            padding: EdgeInsets.all(6.0),
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                        : const Icon(
+                                            Icons.camera_alt,
+                                            size: 14,
                                             color: Colors.white,
                                           ),
-                                        )
-                                      : const Icon(
-                                          Icons.camera_alt,
-                                          size: 14,
-                                          color: Colors.white,
-                                        ),
+                                  ),
                                 ),
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 12),
-                        // اسم المستخدم
                         Text(
                           userName,
                           style: const TextStyle(
@@ -214,13 +218,10 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                 ),
               ],
             ),
-            
-            // مساحة تعويضية لأن الهيدر عائم ويغطي جزء من الشاشة
-            const SizedBox(height: 130),
 
             // --- قائمة الخيارات والأزرار ---
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Column(
                 children: [
                   _buildProfileTile(
@@ -262,13 +263,17 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                     color: AppColors.border,
                   ),
                   const SizedBox(height: 20),
-                  
+
                   SizedBox(
                     width: double.infinity,
                     height: 54,
                     child: ElevatedButton.icon(
                       onPressed: () => _logout(context),
-                      icon: const Icon(Icons.logout, size: 22, color: Colors.white),
+                      icon: const Icon(
+                        Icons.logout,
+                        size: 22,
+                        color: Colors.white,
+                      ),
                       label: const Text(
                         "تسجيل الخروج",
                         style: TextStyle(

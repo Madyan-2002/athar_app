@@ -128,6 +128,8 @@ const updateProductById = async (req, res) => {
                 salary: req.body.salary,
                 location: req.body.location,
                 contactNumber: req.body.contactNumber,
+                // 🔥 تحديث الصورة سحابياً إذا تم رفع ملف جديد، وإلا ستبقى القديمة كما هي
+                ...(req.file && { image: [req.file.path] }) 
             },
             { new: true }
         );

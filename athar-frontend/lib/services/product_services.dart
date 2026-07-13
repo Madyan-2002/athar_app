@@ -4,6 +4,7 @@ import 'package:alkher/constants/api_constant.dart';
 import 'package:alkher/models/product_model.dart';
 import 'package:alkher/services/token_services.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 class ProductServices {
   Future<List<ProductModel>> getProducts({
@@ -66,7 +67,63 @@ class ProductServices {
   if (targetAmount != null) {
     request.fields['targetAmount'] = targetAmount.toString();
   }
+  if (deadline != null) {Future<bool> createProduct({
+  required String title,
+  required String description,
+  required String type,
+  String? categoryId,
+  double? price,
+  int? stock,
+  double? targetAmount,
+  DateTime? deadline,
+  double? salary,
+  String? location,
+  required String contactNumber,
+  required File image,
+}) async {
+  final token = await TokenServices().getToken();
+
+  final request = http.MultipartRequest(
+    'POST',
+    Uri.parse("${ApiConstant.baseUrl}/products"),
+  );
+  request.headers['Authorization'] = 'Bearer $token';
+  request.fields['title'] = title;
+  request.fields['description'] = description;
+  request.fields['type'] = type;
+  request.fields['contactNumber'] = contactNumber;
+
+  if (categoryId != null) request.fields['category'] = categoryId;
+  if (price != null) request.fields['price'] = price.toString();
+  if (stock != null) request.fields['stock'] = stock.toString();
+  if (targetAmount != null) {
+    request.fields['targetAmount'] = targetAmount.toString();
+  }
   if (deadline != null) {
+    request.fields['deadline'] = deadline.toIso8601String();
+  }
+  if (salary != null) request.fields['salary'] = salary.toString();
+  if (location != null) request.fields['location'] = location;
+
+  // 🔥 التعديل الجوهري هنا: تحديد الـ contentType بناءً على امتداد الملف
+  final String extension = image.path.split('.').last.toLowerCase();
+  request.files.add(
+    await http.MultipartFile.fromPath(
+      'image', // تأكد أن هذا الاسم مطابق تماماً للاسم المتوقع في الـ Multer بالباك إند
+      image.path,
+      contentType: MediaType('image', extension == 'png' ? 'png' : 'jpeg'),
+    ),
+  );
+
+  final response = await request.send();
+  final body = await response.stream.bytesToString();
+  
+  // راقب هدول السطرين في الـ Debug Console بالفلاتر عندك عند الضغط على زر الرفع
+  print("Create status: ${response.statusCode}");
+  print("Create body: $body");
+
+  return response.statusCode == 201;
+}
     request.fields['deadline'] = deadline.toIso8601String();
   }
   if (salary != null) request.fields['salary'] = salary.toString();

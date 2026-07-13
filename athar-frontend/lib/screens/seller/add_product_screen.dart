@@ -175,13 +175,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   Future<void> _submit() async {
-    if (selectedImage == null) {
-      _showSnack('الرجاء اختيار صورة للإعلان', isError: true);
-      return;
-    }
-    if (!_formKey.currentState!.validate()) return;
+  // 1. أضف هذا السطر في البداية تماماً للتأكد من استجابة الزر
+  print("🔥 تم الضغط على زر النشر بنجاح من الـ UI!");
 
-    setState(() => _isLoading = true);
+  if (selectedImage == null) {
+    _showSnack('الرجاء اختيار صورة للإعلان', isError: true);
+    return;
+  }
+  
+  // 2. أضف سطر طباعة هنا لمعرفة ما إذا كان الـ Validation يمر أم يعلق
+  print("Form Validation Status: ${_formKey.currentState!.validate()}");
+  if (!_formKey.currentState!.validate()) {
+    print("❌ فشل الـ Validation! هناك حقل غير صحيح أو فارغ في الشاشة.");
+    return;
+  }
+
+  print("🚀 الـ Validation ناجح! جاري إرسال الطلب إلى السيرفر الحي...");
+  setState(() => _isLoading = true);
+  
+  try {
     final success = await ProductServices().createProduct(
       title: _nameController.text.trim(),
       description: _descController.text.trim(),
@@ -189,21 +201,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
       contactNumber: _contactController.text.trim(),
       image: selectedImage!,
       categoryId: _selectedType == 'sell' ? _selectedCategory?.id : null,
-      price: _selectedType == 'sell'
-          ? double.tryParse(_priceController.text)
-          : null,
-      stock: _selectedType == 'sell'
-          ? int.tryParse(_stockController.text)
-          : null,
-      targetAmount: _selectedType == 'donation'
-          ? double.tryParse(_targetAmountController.text)
-          : null,
+      price: _selectedType == 'sell' ? double.tryParse(_priceController.text) : null,
+      stock: _selectedType == 'sell' ? int.tryParse(_stockController.text) : null,
+      targetAmount: _selectedType == 'donation' ? double.tryParse(_targetAmountController.text) : null,
       deadline: _selectedType == 'donation' ? _deadline : null,
-      salary: _selectedType == 'job'
-          ? double.tryParse(_salaryController.text)
-          : null,
+      salary: _selectedType == 'job' ? double.tryParse(_salaryController.text) : null,
       location: _selectedType == 'job' ? _locationController.text.trim() : null,
     );
+    
     setState(() => _isLoading = false);
 
     if (!mounted) return;
@@ -213,8 +218,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
     } else {
       _showSnack('فشل نشر الإعلان، حاول مرة أخرى', isError: true);
     }
+  } catch (error) {
+    setState(() => _isLoading = false);
+    print("🚨 خطأ غير متوقع أثناء عملية الرفع: $error");
   }
-
+}
   @override
   Widget build(BuildContext context) {
     final accent = _currentType.color;
