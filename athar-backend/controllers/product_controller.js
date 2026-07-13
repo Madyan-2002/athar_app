@@ -131,7 +131,7 @@ const updateProductById = async (req, res) => {
                 // 🔥 تحديث الصورة سحابياً إذا تم رفع ملف جديد، وإلا ستبقى القديمة كما هي
                 ...(req.file && { image: [req.file.path] }) 
             },
-            { new: true }
+            { returnDocument: 'after' }
         );
 
         return res.status(200).json(updatedProduct);
