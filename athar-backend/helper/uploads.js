@@ -5,7 +5,7 @@ const cloudinary = require('../config/cloudinary');
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'alkher',
+        folder: 'athar_products',
         allowed_formats: ['jpg', 'png', 'jpeg'],
     },
 });

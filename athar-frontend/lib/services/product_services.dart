@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
 class ProductServices {
+  // جلب المنتجات
   Future<List<ProductModel>> getProducts({
     String? type,
     bool mine = false,
@@ -17,9 +18,8 @@ class ProductServices {
     if (type != null) queryParams['type'] = type;
     if (mine) queryParams['mine'] = 'true';
 
-    final uri = Uri.parse(
-      "${ApiConstant.baseUrl}/products",
-    ).replace(queryParameters: queryParams.isEmpty ? null : queryParams);
+    final uri = Uri.parse("${ApiConstant.baseUrl}/products")
+        .replace(queryParameters: queryParams.isEmpty ? null : queryParams);
 
     final response = await http.get(
       uri,
@@ -35,65 +35,61 @@ class ProductServices {
     return data.map((p) => ProductModel.fromJson(p)).toList();
   }
 
+  // إنشاء المنتج مع رفع الصورة لـ Cloudinary
+  Future<bool> createProduct({
+    required String title,
+    required String description,
+    required String type,
+    String? categoryId,
+    double? price,
+    int? stock,
+    double? targetAmount,
+    DateTime? deadline,
+    double? salary,
+    String? location,
+    required String contactNumber,
+    required File image,
+  }) async {
+    final token = await TokenServices().getToken();
 
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse("${ApiConstant.baseUrl}/products"),
+    );
+    request.headers['Authorization'] = 'Bearer $token';
+    request.fields['title'] = title;
+    request.fields['description'] = description;
+    request.fields['type'] = type;
+    request.fields['contactNumber'] = contactNumber;
 
- Future<bool> createProduct({
-  required String title,
-  required String description,
-  required String type,
-  String? categoryId,
-  double? price,
-  int? stock,
-  double? targetAmount,
-  DateTime? deadline,
-  double? salary,
-  String? location,
-  required String contactNumber,
-  required File image,
-}) async {
-  final token = await TokenServices().getToken();
+    if (categoryId != null) request.fields['category'] = categoryId;
+    if (price != null) request.fields['price'] = price.toString();
+    if (stock != null) request.fields['stock'] = stock.toString();
+    if (targetAmount != null) request.fields['targetAmount'] = targetAmount.toString();
+    if (deadline != null) request.fields['deadline'] = deadline.toIso8601String();
+    if (salary != null) request.fields['salary'] = salary.toString();
+    if (location != null) request.fields['location'] = location;
 
-  final request = http.MultipartRequest(
-    'POST',
-    Uri.parse("${ApiConstant.baseUrl}/products"),
-  );
-  request.headers['Authorization'] = 'Bearer $token';
-  request.fields['title'] = title;
-  request.fields['description'] = description;
-  request.fields['type'] = type;
-  request.fields['contactNumber'] = contactNumber;
+    // تحديد الـ ContentType بناءً على امتداد الصورة لـ Cloudinary
+    final String extension = image.path.split('.').last.toLowerCase();
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'image', 
+        image.path,
+        contentType: MediaType('image', extension == 'png' ? 'png' : 'jpeg'),
+      ),
+    );
 
-  if (categoryId != null) request.fields['category'] = categoryId;
-  if (price != null) request.fields['price'] = price.toString();
-  if (stock != null) request.fields['stock'] = stock.toString();
-  if (targetAmount != null) {
-    request.fields['targetAmount'] = targetAmount.toString();
+    final response = await request.send();
+    final body = await response.stream.bytesToString();
+    
+    print("Create status: ${response.statusCode}");
+    print("Create body: $body");
+
+    return response.statusCode == 201;
   }
-  if (deadline != null) {
-    request.fields['deadline'] = deadline.toIso8601String();
-  }
-  if (salary != null) request.fields['salary'] = salary.toString();
-  if (location != null) request.fields['location'] = location;
 
-  // تحديد نوع امتداد الصورة بدقة ليفهمها multer و Cloudinary
-  final String extension = image.path.split('.').last.toLowerCase();
-  request.files.add(
-    await http.MultipartFile.fromPath(
-      'image', // مطابق لاسم الحقل المنتظر في الباك إند
-      image.path,
-      contentType: MediaType('image', extension == 'png' ? 'png' : 'jpeg'),
-    ),
-  );
-
-  final response = await request.send();
-  final body = await response.stream.bytesToString();
-  
-  // راقب هذه السطور في الـ Debug Console لترى النتيجة النهائية الحية
-  print("Create status: ${response.statusCode}");
-  print("Create body: $body");
-
-  return response.statusCode == 201;
-}
+  // تحديث المنتج
   Future<bool> updateProduct({
     required String id,
     required String title,
@@ -134,9 +130,7 @@ class ProductServices {
     return response.statusCode == 200;
   }
 
-
-
-
+  // حذف المنتج
   Future<bool> deleteProduct(String id) async {
     final token = await TokenServices().getToken();
 
