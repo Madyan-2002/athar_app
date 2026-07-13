@@ -35,39 +35,9 @@ class ProductServices {
     return data.map((p) => ProductModel.fromJson(p)).toList();
   }
 
-  Future<bool> createProduct({
-  required String title,
-  required String description,
-  required String type,
-  String? categoryId,
-  double? price,
-  int? stock,
-  double? targetAmount,
-  DateTime? deadline,
-  double? salary,
-  String? location,
-  required String contactNumber,
-  required File image,
-}) async {
-  final token = await TokenServices().getToken();
 
-  final request = http.MultipartRequest(
-    'POST',
-    Uri.parse("${ApiConstant.baseUrl}/products"),
-  );
-  request.headers['Authorization'] = 'Bearer $token';
-  request.fields['title'] = title;
-  request.fields['description'] = description;
-  request.fields['type'] = type;
-  request.fields['contactNumber'] = contactNumber; // ← أضف هالسطر
 
-  if (categoryId != null) request.fields['category'] = categoryId;
-  if (price != null) request.fields['price'] = price.toString();
-  if (stock != null) request.fields['stock'] = stock.toString();
-  if (targetAmount != null) {
-    request.fields['targetAmount'] = targetAmount.toString();
-  }
-  if (deadline != null) {Future<bool> createProduct({
+ Future<bool> createProduct({
   required String title,
   required String description,
   required String type,
@@ -105,11 +75,11 @@ class ProductServices {
   if (salary != null) request.fields['salary'] = salary.toString();
   if (location != null) request.fields['location'] = location;
 
-  // 🔥 التعديل الجوهري هنا: تحديد الـ contentType بناءً على امتداد الملف
+  // تحديد نوع امتداد الصورة بدقة ليفهمها multer و Cloudinary
   final String extension = image.path.split('.').last.toLowerCase();
   request.files.add(
     await http.MultipartFile.fromPath(
-      'image', // تأكد أن هذا الاسم مطابق تماماً للاسم المتوقع في الـ Multer بالباك إند
+      'image', // مطابق لاسم الحقل المنتظر في الباك إند
       image.path,
       contentType: MediaType('image', extension == 'png' ? 'png' : 'jpeg'),
     ),
@@ -118,21 +88,7 @@ class ProductServices {
   final response = await request.send();
   final body = await response.stream.bytesToString();
   
-  // راقب هدول السطرين في الـ Debug Console بالفلاتر عندك عند الضغط على زر الرفع
-  print("Create status: ${response.statusCode}");
-  print("Create body: $body");
-
-  return response.statusCode == 201;
-}
-    request.fields['deadline'] = deadline.toIso8601String();
-  }
-  if (salary != null) request.fields['salary'] = salary.toString();
-  if (location != null) request.fields['location'] = location;
-
-  request.files.add(await http.MultipartFile.fromPath('image', image.path));
-
-  final response = await request.send();
-  final body = await response.stream.bytesToString();
+  // راقب هذه السطور في الـ Debug Console لترى النتيجة النهائية الحية
   print("Create status: ${response.statusCode}");
   print("Create body: $body");
 
@@ -177,6 +133,9 @@ class ProductServices {
 
     return response.statusCode == 200;
   }
+
+
+
 
   Future<bool> deleteProduct(String id) async {
     final token = await TokenServices().getToken();
