@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
 import 'package:alkher/providers/favorite_provider.dart';
 import 'package:alkher/providers/product_provider.dart';
 import 'package:alkher/services/auth_provider.dart';
 import 'package:alkher/screens/splash_screen.dart';
 import 'package:alkher/styles/app_colors.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +32,19 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
             title: 'Alkher',
             debugShowCheckedModeBanner: false,
+
+            // إعدادات اللغة العربية والاتجاهات
+            locale: const Locale('ar'),
+            supportedLocales: const [
+              Locale('ar'), // دعم اللغة العربية
+            ],
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+
+            // تجميع الـ TextScaler مع Directionality داخل الـ builder
             builder: (context, widget) {
               final mediaQuery = MediaQuery.of(context);
               final screenWidth = mediaQuery.size.width;
@@ -37,13 +52,17 @@ class MyApp extends StatelessWidget {
               double scaleFactor = screenWidth / 375;
               scaleFactor = scaleFactor.clamp(0.85, 1.25);
 
-              return MediaQuery(
-                data: mediaQuery.copyWith(
-                  textScaler: TextScaler.linear(scaleFactor),
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: MediaQuery(
+                  data: mediaQuery.copyWith(
+                    textScaler: TextScaler.linear(scaleFactor),
+                  ),
+                  child: widget!,
                 ),
-                child: widget!,
               );
             },
+
             theme: ThemeData(
               colorScheme: ColorScheme.light(
                 primary: AppColors.primary,

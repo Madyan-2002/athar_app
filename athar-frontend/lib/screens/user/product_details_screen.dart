@@ -41,9 +41,9 @@ class ProductDetailsScreen extends StatelessWidget {
       case 'job':
         return 'تقديم على الوظيفة';
       case 'donation':
-        return 'تواصل مع المتبرع'; // ← بدل "تبرع الآن"
+        return 'تواصل مع المتبرع'; 
       default:
-        return 'تواصل مع البائع';
+        return 'تسجيل';
     }
   }
 
