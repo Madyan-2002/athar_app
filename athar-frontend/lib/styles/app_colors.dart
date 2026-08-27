@@ -1,47 +1,40 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // ── Primary (أخضر - رمز الخير والنماء) ─────
-  static const primary        = Color(0xFF2E7D32);
-  static const primaryDark    = Color(0xFF1B5E20);
-  static const primaryLight   = Color(0xFFE8F5E9);
+  // ── الألوان الأساسية (من اللوغو مباشرة) ──────────
+  static const primaryDark = Color(0xFF1B1F3A);   // أزرق داكن غامق - الهوية الأساسية
+  static const primary = Color(0xFF5466AF);        // أزرق-بنفسجي متوسط
+  static const primaryLight = Color(0xFFE8EAF6);   // تينت فاتح من primary
 
-  // ── Secondary / Accent ───────────────────
-  static const secondary      = Color(0xFF66BB6A);
-  static const accent         = Color(0xFFA5D6A7);
+  static const secondary = Color(0xFF25BAA2);      // أخضر تركوازي (تبرعات/نجاح)
+  static const accent = Color(0xFF92D9F8);         // أزرق سماوي فاتح
 
-  // ── Background & Surfaces (محدثة لتناسب العناصر النظيفة والعصرية) ───
-  static const background     = Color(0xFFF9F9F7); // عاجي ناعم جداً مريح للعين بديل للرمادي المعتاد
-  static const cardBackground = Color(0xFFFFFFFF); // أبيض صافي ناصع للكروت لتبرز فوق الخلفية العاجية
-  static const surface        = Color(0xFFFAFAFA); // أبيض مكسور خفيف جداً لمنع توهج الشاشة الصافي
+  // ── التدرج الرئيسي (Header/Splash) ──────────
+  static const List<Color> primaryGradient = [primaryDark, primary];
 
-  // ── Text (تعديل طفيف لتناسق أفضل) ─────────────────────────
-  static const textPrimary    = Color(0xFF1E201E); // أسود كربوني داكن بدلاً من الأسود الحاد
-  static const textSecondary  = Color(0xFF686D68); // رمادي مائل للخضرة العشبية الخافتة جداً
-  static const textHint       = Color(0xFFB4B8B4);
-  static const textOnPrimary  = Color(0xFFFFFFFF);
+  // ── الخلفيات ──────────────────────────
+  static const background = Color(0xFFF2F4F7);     // نفس خلفية اللوغو بالضبط
+  static const surface = Color(0xFFFFFFFF);
+  static const cardTint = Color(0xFFF6F7FA);
 
-  // ── Card Decoration (الظلال والعناصر الناعمة للكروت) ────────
-  static final cardShadow     = Colors.black.withOpacity(0.04); // الظل العصري الخفيف المريح للعين
-  static final arrowColor     = Colors.grey.shade300; // لون سهم التنقل الناعم داخل الكروت
+  // ── النصوص ──────────────────────────
+  static const textPrimary = Color(0xFF1A1A2E);
+  static const textSecondary = Color(0xFF6B7280);
+  static const textHint = Color(0xFFA0A4B8);
+  static const textOnPrimary = Color(0xFFFFFFFF);
 
-  // ── Border (تم تنعيمها لتتماشى مع الألوان المكسورة) ────────
-  static const border         = Color(0xFFE5E8E5); // حدود ناعمة ومدمجة مع الخلفية الجديدة
-  static const borderFocus    = Color(0xFF2E7D32);
+  // ── الحدود ──────────────────────────
+  static const border = Color(0xFFE1E4EC);
+  static const borderFocus = primary;
 
-  // ── Status ───────────────────────────────
-  static const success        = Color(0xFF34A853);
-  static const error          = Color(0xFFEA4335);
-  static const warning        = Color(0xFFFBBC04);
+  // ── الحالات ──────────────────────────
+  static const success = Color(0xFF25BAA2);        // نفس الأخضر التركوازي
+  static const error = Color(0xFFE85C5C);
+  static const warning = Color(0xFFF5A623);
 
-  // ── Gradient (للـ Splash وأي خلفيات مميزة) ─
-  static const gradientStart  = Color(0xFF1B5E20);
-  static const gradientMid    = Color(0xFF2E7D32);
-  static const gradientEnd    = Color(0xFF81C784);
-
-  static const List<Color> primaryGradient = [
-    gradientStart,
-    gradientMid,
-    gradientEnd,
-  ];
+  // ── ألوان أنواع الإعلانات (يستخدموا هوية اللوغو بدل ألوان عشوائية) ──
+  static const typeSell = Color(0xFF5466AF);       // primary
+  static const typeDonation = Color(0xFF25BAA2);   // secondary (الأخضر التركوازي)
+  static const typeJob = Color(0xFF1B1F3A);        // primaryDark
+  static const typeOther = Color(0xFF7C8CC4);      // درجة أفتح من primary
 }
