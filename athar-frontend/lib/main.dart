@@ -31,11 +31,9 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
             title: 'Alkher',
             debugShowCheckedModeBanner: false,
-
-            // إعدادات اللغة العربية والاتجاهات
             locale: const Locale('ar'),
             supportedLocales: const [
-              Locale('ar'), // دعم اللغة العربية
+              Locale('ar'), 
             ],
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
@@ -61,7 +59,7 @@ class MyApp extends StatelessWidget {
                 ),
               );
             },
-
+            
             theme: ThemeData(
               colorScheme: ColorScheme.light(
                 primary: AppColors.primary,
@@ -89,3 +87,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
