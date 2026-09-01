@@ -58,9 +58,10 @@ class MyApp extends StatelessWidget {
                   child: widget!,
                 ),
               );
-            },
-            
-            theme: ThemeData(
+            }, 
+            // إعدادات الثيم العام للتطبيق
+
+            theme: ThemeData( 
               colorScheme: ColorScheme.light(
                 primary: AppColors.primary,
                 surface: AppColors.surface,
