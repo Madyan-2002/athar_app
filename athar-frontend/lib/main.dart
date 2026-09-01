@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import 'package:alkher/providers/favorite_provider.dart';
 import 'package:alkher/providers/product_provider.dart';
 import 'package:alkher/services/auth_provider.dart';
