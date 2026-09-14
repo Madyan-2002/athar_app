@@ -25,46 +25,54 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: screens[_currentIndex],
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.only(bottom: 24, left: 20, right: 20),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(24),
-          // ── التعديل هنا: جعل الحواف بلون أخضر ناعم ومتناسق مع الهوية ──
-          border: Border.all(
-            color: AppColors.primary.withOpacity(
-              0.15,
-            ), // لون أخضر شفاف يعطي فخامة بدون حدة
-            width: 1.5, // زيادة السمك قليلاً لتبرز الحافة
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 250),
+        child: screens[_currentIndex],
+      ),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Container(
+          margin: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(28),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primaryDark.withOpacity(0.10),
+                blurRadius: 24,
+                offset: const Offset(0, 10),
+              ),
+              BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                blurRadius: 4,
+                offset: const Offset(0, 1),
+              ),
+            ],
           ),
-          boxShadow: [
-            BoxShadow(
-              // ظل ناعم مائل للأخضر الداكن ليعطي عمقاً جميلاً خلف الشريط
-              color: AppColors.primaryDark.withOpacity(0.05),
-              blurRadius: 16,
-              offset: const Offset(0, 6),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           child: SalomonBottomBar(
             currentIndex: _currentIndex,
             onTap: (i) => setState(() => _currentIndex = i),
             unselectedItemColor: AppColors.textSecondary,
-            curve: Curves.easeInOutCubic,
-            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeOutCubic,
+            duration: const Duration(milliseconds: 350),
+            itemPadding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 12,
+            ),
             items: [
               SalomonBottomBarItem(
                 icon: Icon(
-                  _currentIndex == 0 ? Icons.home_rounded : Icons.home_outlined,
+                  _currentIndex == 0
+                      ? Icons.home_rounded
+                      : Icons.home_outlined,
                 ),
                 title: const Text(
-                  "الرئيسية",
+                  'الرئيسية',
                   style: TextStyle(
                     fontFamily: 'Cairo',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
                   ),
                 ),
                 selectedColor: AppColors.primary,
@@ -76,10 +84,11 @@ class _MainScreenState extends State<MainScreen> {
                       : Icons.favorite_border_rounded,
                 ),
                 title: const Text(
-                  "المفضلة",
+                  'المفضلة',
                   style: TextStyle(
                     fontFamily: 'Cairo',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
                   ),
                 ),
                 selectedColor: AppColors.secondary,
@@ -91,10 +100,11 @@ class _MainScreenState extends State<MainScreen> {
                       : Icons.person_outline_rounded,
                 ),
                 title: const Text(
-                  "الحساب",
+                  'الحساب',
                   style: TextStyle(
                     fontFamily: 'Cairo',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
                   ),
                 ),
                 selectedColor: AppColors.primaryDark,

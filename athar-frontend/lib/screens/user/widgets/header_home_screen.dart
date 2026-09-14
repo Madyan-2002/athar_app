@@ -8,6 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HeaderHomeScreen extends StatelessWidget {
+  const HeaderHomeScreen({super.key, this.hasUnreadNotifications = false});
+
+  /// يتحكم بظهور نقطة الإشعار غير المقروء فوق زر الجرس
+  final bool hasUnreadNotifications;
+
+  // اللون التركوازي مأخوذ من نقطة الشعار، يستخدم كلون مميز (accent)
+  // بربط الهوية البصرية للشعار مع باقي عناصر الهيدر
+  static const Color _brandAccent = Color(0xFF2FC6B6);
+
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
@@ -19,7 +28,7 @@ class HeaderHomeScreen extends StatelessWidget {
     final hasImage = imageName != null && imageName.isNotEmpty;
 
     return Container(
-      padding: const EdgeInsets.only(top: 55, bottom: 26, left: 22, right: 22),
+      padding: const EdgeInsets.only(top: 50, bottom: 24, left: 20, right: 20),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: AppColors.primaryGradient,
@@ -51,7 +60,7 @@ class HeaderHomeScreen extends StatelessWidget {
                     ),
                   ),
                   child: CircleAvatar(
-                    radius: 24,
+                    radius: 21,
                     backgroundColor: AppColors.surface,
                     backgroundImage: hasImage
                         ? NetworkImage(ProductCard.getImageUrl(imageName))
@@ -60,60 +69,54 @@ class HeaderHomeScreen extends StatelessWidget {
                         ? const Icon(
                             Icons.person_rounded,
                             color: AppColors.primary,
-                            size: 28,
+                            size: 24,
                           )
                         : null,
                   ),
                 ),
               ),
-              const SizedBox(width: 14),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'أهلاً بك، $displayName 👋',
+                      'أهلاً بك، $displayName',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: AppColors.textOnPrimary,
-                        fontSize: 19,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    const Text(
+                    const SizedBox(height: 2),
+                    Text(
                       'كل الخير في مكان واحد',
-                      style: TextStyle(color: Colors.white70, fontSize: 13),
+                      style: TextStyle(
+                        color: AppColors.textOnPrimary.withOpacity(0.65),
+                        fontSize: 12,
+                      ),
                     ),
                   ],
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: Colors.white.withOpacity(0.1)),
-                ),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const NotificationsScreen(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.notifications_active_rounded,
-                    color: AppColors.textOnPrimary,
-                    size: 24,
-                  ),
-                ),
+              const SizedBox(width: 10),
+              _BrandBar(
+                hasUnread: hasUnreadNotifications,
+                onNotificationTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const NotificationsScreen(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
-          const SizedBox(height: 22),
+          const SizedBox(height: 20),
           Container(
             height: 52,
             decoration: BoxDecoration(
@@ -151,7 +154,10 @@ class HeaderHomeScreen extends StatelessWidget {
                         height: 36,
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
-                            colors: [AppColors.primaryDark, AppColors.primary],
+                            colors: [
+                              AppColors.primaryDark,
+                              HeaderHomeScreen._brandAccent,
+                            ],
                           ),
                           borderRadius: BorderRadius.circular(11),
                         ),
@@ -184,6 +190,76 @@ class HeaderHomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BrandBar extends StatelessWidget {
+  const _BrandBar({required this.onNotificationTap, this.hasUnread = false});
+
+  final VoidCallback onNotificationTap;
+  final bool hasUnread;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: Image.asset(
+              'lib/images/logo.png',
+              height: 20,
+              fit: BoxFit.contain,
+            ),
+          ),
+          Container(
+            width: 1,
+            height: 20,
+            color: AppColors.border,
+          ),
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              IconButton(
+                onPressed: onNotificationTap,
+                icon: const Icon(
+                  Icons.notifications_rounded,
+                  color: AppColors.primaryDark,
+                  size: 21,
+                ),
+              ),
+              if (hasUnread)
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: HeaderHomeScreen._brandAccent,
+                      border: Border.all(color: Colors.white, width: 1.5),
+                    ),
+                  ),
+                ),
+            ],
           ),
         ],
       ),

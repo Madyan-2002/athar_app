@@ -1,10 +1,10 @@
 import 'package:alkher/models/product_model.dart';
 import 'package:alkher/providers/favorite_provider.dart';
+import 'package:alkher/screens/user/main_screen.dart';
 import 'package:alkher/screens/user/widgets/custom_card.dart';
 import 'package:alkher/services/favorite_service.dart';
 import 'package:alkher/styles/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteScreenUser extends StatefulWidget {
@@ -45,48 +45,149 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
     }
   }
 
+  /// لو في شاشة فوقه بالـ Navigator stack يرجعلها عادي، وإلا (يعني هو
+  /// معروض كتبويب بالـ Bottom Navigation بدون stack فوقه) يرجع للرئيسية
+  /// بدل ما يحاول يعمل pop على شي مش موجود ويسبب شاشة سودة
+  void _handleBack(BuildContext context) {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    } else {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const MainScreen()),
+        (route) => false,
+      );
+    }
+  }
+
   void _clearAllFavorites(BuildContext context) {
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text(
-          'حذف الكل',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        content: const Text(
-          'هل أنت متأكد من رغبتك في إزالة جميع العناصر من المفضلة؟',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('إلغاء', style: TextStyle(color: Colors.grey)),
+      barrierColor: Colors.black.withOpacity(0.45),
+      builder: (ctx) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(horizontal: 28),
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(24, 28, 24, 20),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 30,
+                offset: const Offset(0, 12),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              Navigator.pop(ctx);
-              try {
-                await context.read<FavoriteProvider>().clearAll();
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('تم تفريغ المفضلة بنجاح')),
-                  );
-                }
-              } catch (e) {
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'فشل حذف العناصر من السيرفر، يرجى المحاولة لاحقاً',
-                      ),
-                      backgroundColor: Colors.red,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: AppColors.error.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.delete_sweep_rounded,
+                  color: AppColors.error,
+                  size: 30,
+                ),
+              ),
+              const SizedBox(height: 18),
+              const Text(
+                'حذف جميع العناصر؟',
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'هذا الإجراء سيزيل جميع العناصر من المفضلة ولا يمكن التراجع عنه.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13.5,
+                  color: AppColors.textSecondary,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    Navigator.pop(ctx);
+                    try {
+                      await context.read<FavoriteProvider>().clearAll();
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('تم تفريغ المفضلة بنجاح'),
+                            backgroundColor: AppColors.success,
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text(
+                              'فشل حذف العناصر من السيرفر، يرجى المحاولة لاحقاً',
+                            ),
+                            backgroundColor: AppColors.error,
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.error,
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
                     ),
-                  );
-                }
-              }
-            },
-            child: const Text('حذف', style: TextStyle(color: AppColors.error)),
+                  ),
+                  child: const Text(
+                    'نعم، احذف الكل',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: TextButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.textSecondary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: const Text(
+                    'إلغاء',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -100,50 +201,18 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.primaryDark,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColors.textOnPrimary,
-            size: 20,
+      body: Column(
+        children: [
+          _FavoritesHeader(
+            itemCount: visibleProducts.length,
+            onBack: () => _handleBack(context),
+            onClearAll: visibleProducts.isNotEmpty
+                ? () => _clearAllFavorites(context)
+                : null,
           ),
-          onPressed: () => Navigator.pop(context),
-        ),
-        centerTitle: true,
-        title: const Text(
-          'المفضلة',
-          style: TextStyle(
-            color: AppColors.textOnPrimary,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: [
-          if (visibleProducts.isNotEmpty)
-            IconButton(
-              icon: const Icon(
-                Icons.delete_sweep_rounded,
-                color: AppColors.textOnPrimary,
-                size: 26,
-              ),
-              tooltip: 'حذف جميع العناصر',
-              onPressed: () => _clearAllFavorites(context),
-            ),
-          const SizedBox(width: 8),
+          Expanded(child: _buildBody(visibleProducts)),
         ],
-
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Divider(
-            height: 1,
-            thickness: 1,
-            color: AppColors.border.withOpacity(0.2),
-          ),
-        ),
       ),
-      body: _buildBody(visibleProducts),
     );
   }
 
@@ -159,24 +228,33 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
-              Icons.wifi_off_rounded,
-              size: 48,
+            _IconBadge(
+              icon: Icons.wifi_off_rounded,
               color: AppColors.textHint,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             Text(
               _error!,
-              style: const TextStyle(color: AppColors.textSecondary),
+              style: const TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 14,
+              ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 18),
             ElevatedButton.icon(
               onPressed: _loadFavorites,
-              icon: const Icon(Icons.refresh, size: 18),
+              icon: const Icon(Icons.refresh_rounded, size: 18),
               label: const Text('إعادة المحاولة'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryDark,
                 foregroundColor: AppColors.textOnPrimary,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 22,
+                  vertical: 12,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
           ],
@@ -185,20 +263,27 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
     }
 
     if (products.isEmpty) {
-      return const Center(
+      return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.favorite_border, size: 56, color: AppColors.textHint),
-            SizedBox(height: 12),
-            Text(
-              'لا توجد عناصر في المفضلة بعد',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
+            _IconBadge(
+              icon: Icons.favorite_border_rounded,
+              color: AppColors.primary,
             ),
-            SizedBox(height: 6),
-            Text(
+            const SizedBox(height: 18),
+            const Text(
+              'لا توجد عناصر في المفضلة بعد',
+              style: TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 6),
+            const Text(
               'اضغط على أيقونة القلب بأي إعلان لإضافته هنا',
-              style: TextStyle(color: AppColors.textHint, fontSize: 12),
+              style: TextStyle(color: AppColors.textHint, fontSize: 12.5),
             ),
           ],
         ),
@@ -220,5 +305,131 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
         itemBuilder: (context, index) => CustomCard(product: products[index]),
       ),
     );
+  }
+}
+
+/// أيقونة دائرية بخلفية ناعمة، تستخدم بحالات الفراغ والخطأ
+class _IconBadge extends StatelessWidget {
+  const _IconBadge({required this.icon, required this.color});
+
+  final IconData icon;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 84,
+      height: 84,
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        shape: BoxShape.circle,
+      ),
+      child: Icon(icon, size: 36, color: color),
+    );
+  }
+}
+
+/// هيدر متدرج اللون يطابق هوية باقي شاشات التطبيق، بدل الـ AppBar الافتراضي
+class _FavoritesHeader extends StatelessWidget {
+  const _FavoritesHeader({
+    required this.itemCount,
+    required this.onBack,
+    this.onClearAll,
+  });
+
+  final int itemCount;
+  final VoidCallback onBack;
+  final VoidCallback? onClearAll;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top + 12,
+        bottom: 20,
+        left: 20,
+        right: 20,
+      ),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: AppColors.primaryGradient,
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+        ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(28),
+          bottomRight: Radius.circular(28),
+        ),
+      ),
+      child: Row(
+        children: [
+          _HeaderIconButton(
+            icon: Icons.arrow_back_ios_new_rounded,
+            onTap: onBack,
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'المفضلة',
+                  style: TextStyle(
+                    color: AppColors.textOnPrimary,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  itemCount > 0 ? 'العناصر المحفوظة: $itemCount' : 'العناصر المحفوظة',
+                  style: TextStyle(
+                    color: AppColors.textOnPrimary.withOpacity(0.7),
+                    fontSize: 12.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (onClearAll != null)
+            _HeaderIconButton(
+              icon: Icons.delete_sweep_rounded,
+              onTap: onClearAll!,
+              tooltip: 'حذف جميع العناصر',
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HeaderIconButton extends StatelessWidget {
+  const _HeaderIconButton({
+    required this.icon,
+    required this.onTap,
+    this.tooltip,
+  });
+
+  final IconData icon;
+  final VoidCallback onTap;
+  final String? tooltip;
+
+  @override
+  Widget build(BuildContext context) {
+    final button = Container(
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white.withOpacity(0.1)),
+      ),
+      child: IconButton(
+        onPressed: onTap,
+        icon: Icon(icon, color: AppColors.textOnPrimary, size: 20),
+      ),
+    );
+
+    if (tooltip == null) return button;
+    return Tooltip(message: tooltip!, child: button);
   }
 }
