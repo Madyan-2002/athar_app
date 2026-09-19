@@ -83,15 +83,15 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                 controller: _controller,
                 autofocus: widget.initialQuery.isEmpty,
                 textAlign: TextAlign.right,
-                style: const TextStyle(color: AppColors.textPrimary),
+                style:  TextStyle(color: AppColors.textPrimary),
                 onChanged: (value) => setState(() => _query = value.trim().toLowerCase()),
                 decoration: InputDecoration(
                   hintText: 'ابحث عن منتج، تبرع، وظيفة...',
-                  hintStyle: const TextStyle(color: AppColors.textHint, fontSize: 14),
-                  prefixIcon: const Icon(Icons.search_rounded, color: AppColors.textHint),
+                  hintStyle:  TextStyle(color: AppColors.textHint, fontSize: 14),
+                  prefixIcon:  Icon(Icons.search_rounded, color: AppColors.textHint),
                   suffixIcon: _controller.text.isNotEmpty
                       ? IconButton(
-                          icon: const Icon(Icons.close, size: 18, color: AppColors.textHint),
+                          icon:  Icon(Icons.close, size: 18, color: AppColors.textHint),
                           onPressed: () {
                             _controller.clear();
                             setState(() => _query = '');
@@ -113,11 +113,11 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     return Consumer<ProductProvider>(
       builder: (context, provider, child) {
         if (!provider.isAllLoaded) {
-          return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+          return  Center(child: CircularProgressIndicator(color: AppColors.primary));
         }
 
         if (_query.isEmpty) {
-          return const Center(
+          return  Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -136,10 +136,10 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.search_off_rounded, size: 56, color: AppColors.textHint),
+                 Icon(Icons.search_off_rounded, size: 56, color: AppColors.textHint),
                 const SizedBox(height: 12),
                 Text('لا توجد نتائج لـ "$_query"',
-                    style: const TextStyle(color: AppColors.textSecondary)),
+                    style:  TextStyle(color: AppColors.textSecondary)),
               ],
             ),
           );
@@ -152,7 +152,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
               padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
               child: Text(
                 '${results.length} نتيجة',
-                style: const TextStyle(
+                style:  TextStyle(
                   fontSize: 13,
                   color: AppColors.textSecondary,
                   fontWeight: FontWeight.w600,

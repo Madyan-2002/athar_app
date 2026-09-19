@@ -37,7 +37,7 @@ class SellerHeader extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: AppColors.textOnPrimary,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

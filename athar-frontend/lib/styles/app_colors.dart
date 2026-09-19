@@ -1,44 +1,55 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // ── الألوان الأساسية (من اللوغو مباشرة) ──────────
-  static const primaryDark = Color(0xFF1B1F3A); 
-  static const primary = Color(0xFF5466AF);        
-  static const primaryLight = Color(0xFFE8EAF6);  
+  AppColors._();
 
-  static const secondary = Color(0xFF25BAA2);     
-  static const accent = Color(0xFF92D9F8);        
+  /// يتم تحديثها من ThemeProvider عند كل تبديل للوضع
+  static bool isDark = false;
+
+  // ── الألوان الأساسية (من اللوغو مباشرة) ──────────
+  static Color get primaryDark =>
+      isDark ? const Color(0xFF10132A) : const Color(0xFF1B1F3A);
+  static Color get primary => const Color(0xFF5466AF);
+  static Color get primaryLight =>
+      isDark ? const Color(0xFF2A2E55) : const Color(0xFFE8EAF6);
+
+  static Color get secondary => const Color(0xFF25BAA2);
+  static Color get accent => const Color(0xFF92D9F8);
 
   // ── التدرج الرئيسي (Header/Splash) ──────────
-  static const List<Color> primaryGradient = [primaryDark, primary];
+  static List<Color> get primaryGradient => [primaryDark, primary];
 
   // ── الخلفيات ──────────────────────────
-  static const background = Color(0xFFF2F4F7);  
-  static const surface = Color(0xFFFFFFFF);
-  static const cardTint = Color(0xFFF6F7FA);
+  static Color get background =>
+      isDark ? const Color(0xFF121212) : const Color(0xFFF2F4F7);
+  static Color get surface =>
+      isDark ? const Color(0xFF1E1E1E) : const Color(0xFFFFFFFF);
+  static Color get cardTint =>
+      isDark ? const Color(0xFF262626) : const Color(0xFFF6F7FA);
 
   // ── النصوص ──────────────────────────
-  static const textPrimary = Color(0xFF1A1A2E);
-  static const textSecondary = Color(0xFF6B7280);
-  static const textHint = Color(0xFFA0A4B8);
-  static const textOnPrimary = Color(0xFFFFFFFF);
+  static Color get textPrimary =>
+      isDark ? const Color(0xFFF2F2F2) : const Color(0xFF1A1A2E);
+  static Color get textSecondary =>
+      isDark ? const Color(0xFFB0B3C0) : const Color(0xFF6B7280);
+  static Color get textHint =>
+      isDark ? const Color(0xFF787C94) : const Color(0xFFA0A4B8);
+  static Color get textOnPrimary => const Color(0xFFFFFFFF);
 
   // ── الحدود ──────────────────────────
-  static const border = Color(0xFFE1E4EC);
-  static const borderFocus = primary;
+  static Color get border =>
+      isDark ? const Color(0xFF33374A) : const Color(0xFFE1E4EC);
+  static Color get borderFocus => primary;
 
   // ── الحالات ──────────────────────────
-  static const success = Color(0xFF25BAA2);       
-  static const error = Color(0xFFE85C5C);
-  static const warning = Color(0xFFF5A623);
+  static Color get success => const Color(0xFF25BAA2);
+  static Color get error => const Color(0xFFE85C5C);
+  static Color get warning => const Color(0xFFF5A623);
 
-  // ── ألوان أنواع الإعلانات (يستخدموا هوية اللوغو بدل ألوان عشوائية) ──
-  static const typeSell = Color(0xFF5466AF);       
-  static const typeDonation = Color(0xFF25BAA2);   
-  static const typeJob = Color(0xFF1B1F3A);       
-  static const typeOther = Color(0xFF7C8CC4);    
+  // ── ألوان أنواع الإعلانات ──────────
+  static Color get typeSell => const Color(0xFF5466AF);
+  static Color get typeDonation => const Color(0xFF25BAA2);
+  static Color get typeJob =>
+      isDark ? const Color(0xFF4A4F7A) : const Color(0xFF1B1F3A);
+  static Color get typeOther => const Color(0xFF7C8CC4);
 }
-
-
-
-

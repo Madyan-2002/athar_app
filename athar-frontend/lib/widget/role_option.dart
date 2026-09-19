@@ -52,7 +52,7 @@ class RoleOption extends StatelessWidget {
             const SizedBox(height: 2),
             Text(
               subtitle,
-              style: const TextStyle(
+              style:  TextStyle(
                 fontSize: 11,
                 color: AppColors.textSecondary,
               ),

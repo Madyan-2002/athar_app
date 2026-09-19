@@ -113,7 +113,7 @@ class NotificationCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: AppColors.textSecondary,
                     fontSize: 13,
                   ),
@@ -124,7 +124,7 @@ class NotificationCard extends StatelessWidget {
 
           Text(
             time,
-            style: const TextStyle(color: AppColors.textHint, fontSize: 11),
+            style:  TextStyle(color: AppColors.textHint, fontSize: 11),
           ),
         ],
       ),

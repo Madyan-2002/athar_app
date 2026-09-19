@@ -80,7 +80,7 @@ class CustomCard extends StatelessWidget {
                             fit: BoxFit.cover,
                             errorBuilder: (_, __, ___) => Container(
                               color: AppColors.background,
-                              child: const Icon(
+                              child:  Icon(
                                 Icons.image_not_supported_outlined,
                                 color: AppColors.textHint,
                               ),
@@ -88,7 +88,7 @@ class CustomCard extends StatelessWidget {
                           )
                         : Container(
                             color: AppColors.background,
-                            child: const Icon(
+                            child:  Icon(
                               Icons.image_outlined,
                               color: AppColors.textHint,
                             ),
@@ -133,7 +133,7 @@ class CustomCard extends StatelessWidget {
                 children: [
                   Text(
                     product.title,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                       color: AppColors.textPrimary,

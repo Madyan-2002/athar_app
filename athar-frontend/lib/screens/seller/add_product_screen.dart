@@ -39,7 +39,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   bool _isLoading = false;
   String _selectedType = 'sell';
 
-  final List<TypeOption> _types = const [
+  final List<TypeOption> _types =  [
     TypeOption(
       'sell',
       'بيع',
@@ -119,7 +119,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
+            colorScheme:  ColorScheme.light(
               primary: AppColors.primaryDark,
               onPrimary: Colors.white,
               onSurface: AppColors.textPrimary,

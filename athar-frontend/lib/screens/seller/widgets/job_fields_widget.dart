@@ -69,11 +69,11 @@ class JobFieldsWidget extends StatelessWidget {
           controller: controller,
           keyboardType: keyboardType,
           validator: (val) => val == null || val.trim().isEmpty ? 'مطلوب' : null,
-          style: const TextStyle(color: AppColors.textPrimary, fontSize: 14.5),
+          style:  TextStyle(color: AppColors.textPrimary, fontSize: 14.5),
           decoration: InputDecoration(
             hintText: hint,
             prefixText: prefix,
-            hintStyle: const TextStyle(color: AppColors.textHint, fontSize: 13.5),
+            hintStyle:  TextStyle(color: AppColors.textHint, fontSize: 13.5),
             filled: true,
             fillColor: accent.withOpacity(0.045),
             enabledBorder: OutlineInputBorder(
@@ -86,11 +86,11 @@ class JobFieldsWidget extends StatelessWidget {
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppColors.error, width: 1.4),
+              borderSide:  BorderSide(color: AppColors.error, width: 1.4),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppColors.error, width: 2),
+              borderSide:  BorderSide(color: AppColors.error, width: 2),
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           ),

@@ -24,10 +24,10 @@ class ActionButtons extends StatelessWidget {
             onPressed: isLoading ? null : onCancel,
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 14),
-              side: const BorderSide(color: AppColors.border),
+              side:  BorderSide(color: AppColors.border),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             ),
-            child: const Text('إلغاء', style: TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            child:  Text('إلغاء', style: TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ),
         ),
         const SizedBox(width: 12),

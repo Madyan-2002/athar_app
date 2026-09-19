@@ -90,7 +90,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         left: 20,
         right: 20,
       ),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         gradient: LinearGradient(
           colors: AppColors.primaryGradient,
           begin: Alignment.topRight,
@@ -108,7 +108,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             onTap: () => Navigator.pop(context),
           ),
           const SizedBox(width: 14),
-          const Text(
+           Text(
             'تعديل الملف الشخصي',
             style: TextStyle(
               color: AppColors.textOnPrimary,
@@ -125,7 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget _buildLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style:  TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: AppColors.textSecondary,
@@ -147,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         const SizedBox(width: 8),
         Text(
           text,
-          style: const TextStyle(
+          style:  TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: AppColors.textSecondary,
@@ -256,7 +256,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     AppColors.primaryDark.withOpacity(0.5),
                     AppColors.primary.withOpacity(0.5),
                   ]
-                : const [AppColors.primaryDark, AppColors.primary],
+                :  [AppColors.primaryDark, AppColors.primary],
           ),
           boxShadow: _isLoading
               ? []
@@ -276,7 +276,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             onTap: _isLoading ? null : _handleSave,
             child: Center(
               child: _isLoading
-                  ? const SizedBox(
+                  ?  SizedBox(
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
@@ -284,7 +284,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         strokeWidth: 2.5,
                       ),
                     )
-                  : const Text(
+                  :  Text(
                       'حفظ التغييرات',
                       style: TextStyle(
                         color: AppColors.textOnPrimary,

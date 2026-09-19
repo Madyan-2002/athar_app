@@ -29,7 +29,7 @@ class HeaderHomeScreen extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.only(top: 50, bottom: 24, left: 20, right: 20),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         gradient: LinearGradient(
           colors: AppColors.primaryGradient,
           begin: Alignment.topRight,
@@ -66,7 +66,7 @@ class HeaderHomeScreen extends StatelessWidget {
                         ? NetworkImage(ProductCard.getImageUrl(imageName))
                         : null,
                     child: !hasImage
-                        ? const Icon(
+                        ?  Icon(
                             Icons.person_rounded,
                             color: AppColors.primary,
                             size: 24,
@@ -85,7 +85,7 @@ class HeaderHomeScreen extends StatelessWidget {
                       'أهلاً بك، $displayName',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: AppColors.textOnPrimary,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -153,7 +153,7 @@ class HeaderHomeScreen extends StatelessWidget {
                         width: 36,
                         height: 36,
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
+                          gradient:  LinearGradient(
                             colors: [
                               AppColors.primaryDark,
                               HeaderHomeScreen._brandAccent,
@@ -168,7 +168,7 @@ class HeaderHomeScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      const Expanded(
+                       Expanded(
                         child: Text(
                           'ابحث عن منتج، تبرع، وظيفة...',
                           style: TextStyle(
@@ -239,7 +239,7 @@ class _BrandBar extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: onNotificationTap,
-                icon: const Icon(
+                icon:  Icon(
                   Icons.notifications_rounded,
                   color: AppColors.primaryDark,
                   size: 21,

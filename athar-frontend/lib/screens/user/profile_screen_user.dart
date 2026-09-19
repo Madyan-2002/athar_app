@@ -3,6 +3,8 @@ import 'package:alkher/screens/login_screen.dart';
 import 'package:alkher/screens/seller/widgets/product_card.dart';
 import 'package:alkher/screens/user/edit_profile_screen.dart';
 import 'package:alkher/screens/user/feedback_user_screen.dart';
+import 'package:alkher/screens/user/orders_screen_user.dart';
+import 'package:alkher/screens/user/settings_screen_user.dart';
 import 'package:alkher/services/auth_provider.dart';
 import 'package:alkher/styles/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           content: Text('تم تحديث الصورة بنجاح'),
           backgroundColor: AppColors.success,
         ),
@@ -91,7 +93,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.only(top: 60, bottom: 70),
-                  decoration: const BoxDecoration(
+                  decoration:  BoxDecoration(
                     gradient: LinearGradient(
                       colors: AppColors.primaryGradient,
                       begin: Alignment.topRight,
@@ -132,7 +134,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                           children: [
                             Container(
                               padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(
+                              decoration:  BoxDecoration(
                                 color: AppColors.surface,
                                 shape: BoxShape.circle,
                               ),
@@ -145,7 +147,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                                       )
                                     : null,
                                 child: !hasImage
-                                    ? const Icon(
+                                    ?  Icon(
                                         Icons.person,
                                         size: 50,
                                         color: AppColors.primary,
@@ -196,17 +198,17 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                         const SizedBox(height: 12),
                         Text(
                           userName,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: AppColors.textPrimary,
                           ),
                         ),
                         if (userEmail.isNotEmpty) ...[
-                          const SizedBox(height: 4),
+                           SizedBox(height: 4),
                           Text(
                             userEmail,
-                            style: const TextStyle(
+                            style:  TextStyle(
                               fontSize: 13,
                               color: AppColors.textSecondary,
                             ),
@@ -235,14 +237,24 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                     ),
                   ),
                   _buildProfileTile(
-                    icon: Icons.favorite_border,
-                    title: "المفضلة",
-                    onTap: () {},
+                    icon: Icons.receipt_long_outlined,
+                    title: "قائمة طلباتي",
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OrdersScreenUser(),
+                      ),
+                    ),
                   ),
                   _buildProfileTile(
                     icon: Icons.settings_outlined,
                     title: "الإعدادات",
-                    onTap: () {},
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsScreenUser(),
+                      ),
+                    ),
                   ),
                   _buildProfileTile(
                     icon: Icons.help_outline,
@@ -257,7 +269,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  const Divider(
+                   Divider(
                     height: 5,
                     thickness: 2,
                     color: AppColors.border,
@@ -332,13 +344,13 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
         ),
         title: Text(
           title,
-          style: const TextStyle(
+          style:  TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w600,
             color: AppColors.textPrimary,
           ),
         ),
-        trailing: const Icon(
+        trailing:  Icon(
           Icons.arrow_forward_ios,
           size: 14,
           color: AppColors.textHint,

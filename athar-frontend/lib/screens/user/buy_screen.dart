@@ -34,7 +34,7 @@ class _BuyScreenState extends State<BuyScreen> {
           },
           icon: Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
-        title: const Text(
+        title:  Text(
           'الشراء',
           style: TextStyle(
             color: AppColors.textOnPrimary,

@@ -40,7 +40,7 @@ class ImagePickerField extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: const Icon(
+              leading:  Icon(
                 Icons.photo_library_outlined,
                 color: AppColors.primaryDark,
               ),
@@ -48,7 +48,7 @@ class ImagePickerField extends StatelessWidget {
               onTap: () => Navigator.pop(context, ImageSource.gallery),
             ),
             ListTile(
-              leading: const Icon(
+              leading:  Icon(
                 Icons.camera_alt_outlined,
                 color: AppColors.primaryDark,
               ),
@@ -87,7 +87,7 @@ class ImagePickerField extends StatelessWidget {
                     color: AppColors.textHint,
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                   Text(
                     'اضغط لاختيار صورة',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
@@ -95,7 +95,7 @@ class ImagePickerField extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                   Text(
                     'من المعرض أو الكاميرا',
                     style: TextStyle(fontSize: 12, color: AppColors.textHint),
                   ),

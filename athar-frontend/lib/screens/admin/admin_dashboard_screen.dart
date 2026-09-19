@@ -13,10 +13,10 @@ class AdminDashboardScreen extends StatefulWidget {
 class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [
-    FeedbacksScreen(),
-    ManageUsersScreen(),
-    AdminProfileScreen(),
+  final List<Widget> _pages = [
+     FeedbacksScreen(),
+     ManageUsersScreen(),
+     AdminProfileScreen(),
   ];
 
   @override

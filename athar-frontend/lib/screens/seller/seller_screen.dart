@@ -23,7 +23,7 @@ class _SellerScreenState extends State<SellerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const activeColor = AppColors.primaryDark;
+    final activeColor = AppColors.primaryDark;
 
     return Scaffold(
       backgroundColor: AppColors.background,

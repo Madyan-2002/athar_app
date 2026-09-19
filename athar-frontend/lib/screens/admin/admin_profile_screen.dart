@@ -18,11 +18,11 @@ class AdminProfileScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('إلغاء', style: TextStyle(color: AppColors.textSecondary)),
+            child:  Text('إلغاء', style: TextStyle(color: AppColors.textSecondary)),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text(
+            child:  Text(
               'تسجيل الخروج',
               style: TextStyle(color: AppColors.error, fontWeight: FontWeight.w600),
             ),
@@ -96,7 +96,7 @@ class AdminProfileScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   user?.name ?? 'أدمن',
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 17,
                                     color: AppColors.textPrimary,
@@ -105,7 +105,7 @@ class AdminProfileScreen extends StatelessWidget {
                                 const SizedBox(height: 3),
                                 Text(
                                   user?.email ?? '',
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                     color: AppColors.textSecondary,
                                     fontSize: 12.5,
                                   ),
@@ -121,13 +121,13 @@ class AdminProfileScreen extends StatelessWidget {
                       width: double.infinity,
                       child: OutlinedButton.icon(
                         onPressed: () => _confirmLogout(context),
-                        icon: const Icon(Icons.logout, size: 18, color: AppColors.error),
-                        label: const Text(
+                        icon:  Icon(Icons.logout, size: 18, color: AppColors.error),
+                        label:  Text(
                           'تسجيل الخروج',
                           style: TextStyle(color: AppColors.error, fontWeight: FontWeight.w600),
                         ),
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: AppColors.error),
+                          side:  BorderSide(color: AppColors.error),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),

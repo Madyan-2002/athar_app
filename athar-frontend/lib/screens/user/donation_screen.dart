@@ -35,9 +35,9 @@ class _DonationScreenState extends State<DonationScreen> {
         systemOverlayStyle: SystemUiOverlayStyle.light,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textOnPrimary, size: 20),
+          icon:  Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textOnPrimary, size: 20),
         ),
-        title: const Text(
+        title:  Text(
           'التبرعات',
           style: TextStyle(
             color: AppColors.textOnPrimary, 
@@ -61,7 +61,7 @@ class _DonationScreenState extends State<DonationScreen> {
           switch (status) {
             case LoadStatus.loading:
             case LoadStatus.initial:
-              return const Center(
+              return  Center(
                 child: CircularProgressIndicator(color: AppColors.primary),
               );
 
@@ -70,11 +70,11 @@ class _DonationScreenState extends State<DonationScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.wifi_off_rounded, color: AppColors.textHint, size: 50),
+                     Icon(Icons.wifi_off_rounded, color: AppColors.textHint, size: 50),
                     const SizedBox(height: 12),
                     Text(
                       provider.errorFor(_type) ?? 'حدث خطأ أثناء التحميل',
-                      style: const TextStyle(color: AppColors.textSecondary),
+                      style:  TextStyle(color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton(
@@ -93,7 +93,7 @@ class _DonationScreenState extends State<DonationScreen> {
               final products = provider.productsFor(_type);
 
               if (products.isEmpty) {
-                return const Center(
+                return  Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

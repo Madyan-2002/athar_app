@@ -118,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(24, 60, 24, 32),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -149,14 +149,14 @@ class _RegisterScreenState extends State<RegisterScreen>
                 ),
               ],
             ),
-            child: const Icon(
+            child:  Icon(
               Icons.person_add_alt_1,
               color: AppColors.textOnPrimary,
               size: 28,
             ),
           ),
           const SizedBox(height: 16),
-          const Text(
+           Text(
             'إنشاء حساب جديد',
             style: TextStyle(
               color: AppColors.textOnPrimary,
@@ -182,7 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen>
   Widget _buildLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style:  TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: AppColors.textSecondary,
@@ -354,7 +354,7 @@ class _RegisterScreenState extends State<RegisterScreen>
             onTap: _isLoading ? null : _handleRegister,
             child: Center(
               child: _isLoading
-                  ? const SizedBox(
+                  ?  SizedBox(
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
@@ -362,7 +362,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                         strokeWidth: 2.5,
                       ),
                     )
-                  : const Text(
+                  :  Text(
                       'إنشاء الحساب',
                       style: TextStyle(
                         color: AppColors.textOnPrimary,
@@ -381,7 +381,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+         Text(
           'لديك حساب بالفعل؟',
           style: TextStyle(
             fontSize: 14,
@@ -390,7 +390,7 @@ class _RegisterScreenState extends State<RegisterScreen>
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text(
+          child:  Text(
             'تسجيل الدخول',
             style: TextStyle(
               color: AppColors.primary,

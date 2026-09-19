@@ -21,7 +21,7 @@ class AdSection extends StatelessWidget {
         );
 
         if (isLoading) {
-          return const SizedBox(
+          return  SizedBox(
             height: 220,
             child: Center(
               child: CircularProgressIndicator(color: AppColors.primary),
@@ -30,7 +30,7 @@ class AdSection extends StatelessWidget {
         }
 
         if (products.isEmpty) {
-          return const Padding(
+          return  Padding(
             padding: EdgeInsets.symmetric(vertical: 30),
             child: Center(
               child: Text(

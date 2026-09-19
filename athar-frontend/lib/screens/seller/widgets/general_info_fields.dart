@@ -56,7 +56,7 @@ class GeneralInfoFields extends StatelessWidget {
             TextFormField(
               controller: contactController,
               keyboardType: TextInputType.phone,
-              style: const TextStyle(color: AppColors.textPrimary, fontSize: 14.5),
+              style:  TextStyle(color: AppColors.textPrimary, fontSize: 14.5),
               validator: (val) {
                 if (val == null || val.trim().isEmpty) return 'رقم التواصل مطلوب';
                 final digitsOnly = val.replaceAll(RegExp(r'[^0-9]'), '');
@@ -69,7 +69,7 @@ class GeneralInfoFields extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            const Text(
+             Text(
               'أدخل الرقم مع رمز الدولة بدون + أو أصفار البداية',
               style: TextStyle(fontSize: 10.5, color: AppColors.textHint),
             ),
@@ -119,7 +119,7 @@ class GeneralInfoFields extends StatelessWidget {
           maxLines: maxLines,
           maxLength: maxLength,
           validator: validator,
-          style: const TextStyle(color: AppColors.textPrimary, fontSize: 14.5),
+          style:  TextStyle(color: AppColors.textPrimary, fontSize: 14.5),
           decoration: _inputDecoration(hint: hint, accent: accent, maxLength: maxLength),
         ),
       ],
@@ -134,7 +134,7 @@ class GeneralInfoFields extends StatelessWidget {
     return InputDecoration(
       hintText: hint,
       counterText: maxLength != null ? null : '',
-      hintStyle: const TextStyle(color: AppColors.textHint, fontSize: 13.5),
+      hintStyle:  TextStyle(color: AppColors.textHint, fontSize: 13.5),
       filled: true,
       fillColor: accent.withOpacity(0.045),
       enabledBorder: OutlineInputBorder(
@@ -147,11 +147,11 @@ class GeneralInfoFields extends StatelessWidget {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.error, width: 1.4),
+        borderSide:  BorderSide(color: AppColors.error, width: 1.4),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.error, width: 2),
+        borderSide:  BorderSide(color: AppColors.error, width: 2),
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
     );

@@ -42,6 +42,12 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteAccount() async {
+  // TODO: بدّل هذا بنداء API الفعلي لما يجهز الباك اند
+  // مثال متوقع: await _apiService.delete('/user/account');
+  await logoutUser();
+}
+
   // ── تحديث الملف الشخصي (اسم/إيميل/صورة) ──────
   Future<void> updateProfile({
     required String name,

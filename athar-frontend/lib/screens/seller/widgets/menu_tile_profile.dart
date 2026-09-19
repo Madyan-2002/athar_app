@@ -33,14 +33,14 @@ class MenuTileProfile extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: const TextStyle(
+                  style:  TextStyle(
                     fontSize: 14,
                     color: AppColors.textPrimary,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
-              const Icon(
+               Icon(
                 Icons.arrow_forward_ios,
                 size: 14,
                 color: AppColors.textHint,

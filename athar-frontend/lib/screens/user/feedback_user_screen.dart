@@ -20,7 +20,7 @@ class _FeedbackUserScreenState extends State<FeedbackUserScreen> {
 
     if (message.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           content: Text("يرجى كتابة ملاحظتك"),
           backgroundColor: AppColors.error,
         ),
@@ -41,7 +41,7 @@ class _FeedbackUserScreenState extends State<FeedbackUserScreen> {
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           content: Text("شكراً لك، تم إرسال ملاحظتك."),
           backgroundColor: AppColors.success,
         ),
@@ -50,7 +50,7 @@ class _FeedbackUserScreenState extends State<FeedbackUserScreen> {
       Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           content: Text("حدث خطأ أثناء الإرسال"),
           backgroundColor: AppColors.error,
         ),
@@ -102,7 +102,7 @@ class _FeedbackUserScreenState extends State<FeedbackUserScreen> {
           children: [
             const SizedBox(height: 10),
 
-            const Center(
+             Center(
               child: Icon(
                 Icons.feedback_rounded,
                 color: AppColors.primary,
@@ -121,7 +121,7 @@ class _FeedbackUserScreenState extends State<FeedbackUserScreen> {
 
             const SizedBox(height: 8),
 
-            const Center(
+             Center(
               child: Text(
                 "شاركنا اقتراحاتك أو أخبرنا بأي مشكلة واجهتك داخل التطبيق.",
                 textAlign: TextAlign.center,

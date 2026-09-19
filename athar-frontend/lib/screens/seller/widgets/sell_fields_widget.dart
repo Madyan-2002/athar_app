@@ -51,7 +51,7 @@ class _SellFieldsWidgetState extends State<SellFieldsWidget> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('إلغاء', style: TextStyle(color: AppColors.textSecondary)),
+            child:  Text('إلغاء', style: TextStyle(color: AppColors.textSecondary)),
           ),
           TextButton(
             onPressed: () {
@@ -85,7 +85,7 @@ class _SellFieldsWidgetState extends State<SellFieldsWidget> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           content: Text('فشل إضافة التصنيف'),
           backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
@@ -224,7 +224,7 @@ class _SellFieldsWidgetState extends State<SellFieldsWidget> {
           controller: controller,
           keyboardType: keyboardType,
           validator: (val) => val == null || val.isEmpty ? 'مطلوب' : null,
-          style: const TextStyle(color: AppColors.textPrimary, fontSize: 14.5),
+          style:  TextStyle(color: AppColors.textPrimary, fontSize: 14.5),
           decoration: _inputDecoration(prefix: prefix, hint: hint),
         ),
       ],
@@ -237,7 +237,7 @@ class _SellFieldsWidgetState extends State<SellFieldsWidget> {
       prefixText: prefix,
       filled: true,
       fillColor: widget.accent.withOpacity(0.045),
-      hintStyle: const TextStyle(color: AppColors.textHint, fontSize: 13.5),
+      hintStyle:  TextStyle(color: AppColors.textHint, fontSize: 13.5),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: widget.accent.withOpacity(0.35), width: 1.4),
@@ -248,11 +248,11 @@ class _SellFieldsWidgetState extends State<SellFieldsWidget> {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.error, width: 1.4),
+        borderSide:  BorderSide(color: AppColors.error, width: 1.4),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.error, width: 2),
+        borderSide:  BorderSide(color: AppColors.error, width: 2),
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
     );

@@ -172,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen>
         horizontal: 24,
         vertical: isKeyboardOpen ? 16 : 40,
       ),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -300,7 +300,7 @@ class _LoginScreenState extends State<LoginScreen>
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          gradient: const LinearGradient(
+          gradient:  LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
             colors: [
@@ -324,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen>
             onTap: _isLoading ? null : _handleLogin,
             child: Center(
               child: _isLoading
-                  ? const SizedBox(
+                  ?  SizedBox(
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
@@ -332,7 +332,7 @@ class _LoginScreenState extends State<LoginScreen>
                         strokeWidth: 2.5,
                       ),
                     )
-                  : const Text(
+                  :  Text(
                       'تسجيل الدخول',
                       style: TextStyle(
                         color: AppColors.textOnPrimary,
@@ -402,7 +402,7 @@ class _LoginScreenState extends State<LoginScreen>
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+         Text(
           'ليس لديك حساب؟',
           style: TextStyle(
             fontSize: 14,
@@ -418,7 +418,7 @@ class _LoginScreenState extends State<LoginScreen>
               ),
             );
           },
-          child: const Text(
+          child:  Text(
             'إنشاء حساب',
             style: TextStyle(
               color: AppColors.primary,
@@ -461,7 +461,7 @@ class _LoginScreenState extends State<LoginScreen>
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                   Text(
                     'البريد الإلكتروني',
                     style: TextStyle(
                       fontSize: 14,
@@ -472,7 +472,7 @@ class _LoginScreenState extends State<LoginScreen>
                   const SizedBox(height: 8),
                   _buildEmailField(),
                   const SizedBox(height: 20),
-                  const Text(
+                   Text(
                     'كلمة المرور',
                     style: TextStyle(
                       fontSize: 14,
@@ -491,7 +491,7 @@ class _LoginScreenState extends State<LoginScreen>
                         padding: EdgeInsets.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      child: const Text(
+                      child:  Text(
                         'نسيت كلمة المرور؟',
                         style: TextStyle(
                           color: AppColors.primary,

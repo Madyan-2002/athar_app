@@ -133,7 +133,7 @@ class _SplashScreenState extends State<SplashScreen>
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -188,7 +188,7 @@ class _SplashScreenState extends State<SplashScreen>
                               ),
                             ],
                           ),
-                          child: const Icon(
+                          child:  Icon(
                             Icons.volunteer_activism,
                             size: 62,
                             color: AppColors.primaryDark,
@@ -205,7 +205,7 @@ class _SplashScreenState extends State<SplashScreen>
                         opacity: _textOpacity,
                         child: Column(
                           children: [
-                            const Text(
+                             Text(
                               'أثر',
                               style: TextStyle(
                                 fontSize: 30,

@@ -24,7 +24,7 @@ class SectionTitle extends StatelessWidget {
           width: 4,
           height: subtitle != null ? 34 : 20,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
+            gradient:  LinearGradient(
               colors: [AppColors.primaryDark, AppColors.primary],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -43,7 +43,7 @@ class SectionTitle extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style:  TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
                 color: AppColors.textPrimary,
@@ -54,7 +54,7 @@ class SectionTitle extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 subtitle!,
-                style: const TextStyle(
+                style:  TextStyle(
                   fontSize: 12,
                   color: AppColors.textSecondary,
                 ),

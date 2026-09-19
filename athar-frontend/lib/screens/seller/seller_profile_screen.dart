@@ -19,14 +19,14 @@ class SellerProfileScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text(
+            child:  Text(
               'إلغاء',
               style: TextStyle(color: AppColors.textSecondary),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text(
+            child:  Text(
               'تسجيل الخروج',
               style: TextStyle(
                 color: AppColors.error,
@@ -63,7 +63,7 @@ class SellerProfileScreen extends StatelessWidget {
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(20, 50, 20, 30),
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                 gradient: LinearGradient(
                   colors: [AppColors.primaryDark, AppColors.primary],
                   begin: Alignment.topLeft,
@@ -71,7 +71,7 @@ class SellerProfileScreen extends StatelessWidget {
                 ),
               ),
               child: Row(
-                children: const [
+                children:  [
                   Icon(Icons.person_outline, color: AppColors.textOnPrimary),
                   SizedBox(width: 10),
                   Text(
@@ -120,14 +120,14 @@ class SellerProfileScreen extends StatelessWidget {
                               color: AppColors.primary.withOpacity(0.2),
                             ),
                           ),
-                          child: const Icon(
+                          child:  Icon(
                             Icons.storefront_outlined,
                             color: AppColors.primaryDark,
                             size: 30,
                           ),
                         ),
                         const SizedBox(width: 16),
-                        const Expanded(
+                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -155,7 +155,7 @@ class SellerProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   // ── Section Title ──────────
-                  const Text(
+                   Text(
                     'الحساب',
                     style: TextStyle(
                       fontSize: 13,

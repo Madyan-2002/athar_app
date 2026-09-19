@@ -90,7 +90,7 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
                   color: AppColors.error.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child:  Icon(
                   Icons.delete_sweep_rounded,
                   color: AppColors.error,
                   size: 30,
@@ -218,7 +218,7 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
 
   Widget _buildBody(List<ProductModel> products) {
     if (_isLoading) {
-      return const Center(
+      return  Center(
         child: CircularProgressIndicator(color: AppColors.primary),
       );
     }
@@ -235,7 +235,7 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
             const SizedBox(height: 16),
             Text(
               _error!,
-              style: const TextStyle(
+              style:  TextStyle(
                 color: AppColors.textSecondary,
                 fontSize: 14,
               ),
@@ -272,7 +272,7 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
               color: AppColors.primary,
             ),
             const SizedBox(height: 18),
-            const Text(
+             Text(
               'لا توجد عناصر في المفضلة بعد',
               style: TextStyle(
                 color: AppColors.textSecondary,
@@ -281,7 +281,7 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
               ),
             ),
             const SizedBox(height: 6),
-            const Text(
+             Text(
               'اضغط على أيقونة القلب بأي إعلان لإضافته هنا',
               style: TextStyle(color: AppColors.textHint, fontSize: 12.5),
             ),
@@ -350,7 +350,7 @@ class _FavoritesHeader extends StatelessWidget {
         left: 20,
         right: 20,
       ),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         gradient: LinearGradient(
           colors: AppColors.primaryGradient,
           begin: Alignment.topRight,
@@ -373,7 +373,7 @@ class _FavoritesHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
+                 Text(
                   'المفضلة',
                   style: TextStyle(
                     color: AppColors.textOnPrimary,

@@ -36,7 +36,7 @@ class _OtherScreenState extends State<OtherScreen> {
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title:  Text(
           'أخرى',
           style: TextStyle(
             color: AppColors.textOnPrimary,
@@ -52,7 +52,7 @@ class _OtherScreenState extends State<OtherScreen> {
           switch (status) {
             case LoadStatus.initial:
             case LoadStatus.loading:
-              return const Center(
+              return  Center(
                 child: CircularProgressIndicator(color: AppColors.primary),
               );
 
@@ -61,7 +61,7 @@ class _OtherScreenState extends State<OtherScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
+                     Icon(
                       Icons.wifi_off_rounded,
                       size: 50,
                       color: AppColors.textHint,
@@ -81,7 +81,7 @@ class _OtherScreenState extends State<OtherScreen> {
               final products = provider.productsFor(_type);
 
               if (products.isEmpty) {
-                return const Center(
+                return  Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

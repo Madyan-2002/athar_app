@@ -41,7 +41,9 @@ class ProductDetailsScreen extends StatelessWidget {
       case 'job':
         return 'تقديم على الوظيفة';
       case 'donation':
-        return 'تواصل مع المتبرع'; 
+        return 'تواصل مع المتبرع';
+      case 'sell':
+        return 'شراء';
       default:
         return 'تسجيل';
     }
@@ -141,7 +143,7 @@ class ProductDetailsScreen extends StatelessWidget {
             child: Transform.translate(
               offset: const Offset(0, -10),
               child: Container(
-                decoration: const BoxDecoration(
+                decoration:  BoxDecoration(
                   color: AppColors.background,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                 ),
@@ -151,7 +153,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   children: [
                     Text(
                       product.title,
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: AppColors.textPrimary,
@@ -171,7 +173,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         product.description.isNotEmpty
                             ? product.description
                             : 'لا يوجد وصف',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 14,
                           color: AppColors.textSecondary,
                           height: 1.7,
@@ -194,7 +196,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             const SizedBox(width: 8),
                             Text(
                               product.categoryName!,
-                              style: const TextStyle(
+                              style:  TextStyle(
                                 fontSize: 14,
                                 color: AppColors.textSecondary,
                               ),
@@ -223,7 +225,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             const SizedBox(width: 12),
                             Text(
                               product.createdByName!,
-                              style: const TextStyle(
+                              style:  TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.textPrimary,
@@ -295,7 +297,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
                   if (!success && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                       SnackBar(
                         content: Text(
                           'تعذر فتح واتساب، تأكد من تثبيته على جهازك',
                         ),
@@ -452,7 +454,7 @@ class _StatBox extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             label,
-            style: const TextStyle(
+            style:  TextStyle(
               fontSize: 11,
               color: AppColors.textSecondary,
             ),
@@ -500,7 +502,7 @@ class _SectionCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style:  TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w700,
               color: AppColors.textSecondary,

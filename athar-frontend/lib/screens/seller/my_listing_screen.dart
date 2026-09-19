@@ -68,14 +68,14 @@ class _MyListingsScreenState extends State<MyListingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text(
+            child:  Text(
               'إلغاء',
               style: TextStyle(color: AppColors.textSecondary),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text(
+            child:  Text(
               'حذف',
               style: TextStyle(
                 color: AppColors.error,
@@ -108,7 +108,7 @@ class _MyListingsScreenState extends State<MyListingsScreen> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           content: Text('فشل حذف الإعلان'),
           backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
@@ -234,7 +234,7 @@ class _MyListingsScreenState extends State<MyListingsScreen> {
 
   Widget _buildBody() {
     if (_isLoading) {
-      return const Center(
+      return  Center(
         child: CircularProgressIndicator(color: AppColors.primary),
       );
     }
@@ -244,7 +244,7 @@ class _MyListingsScreenState extends State<MyListingsScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+             Icon(
               Icons.wifi_off_rounded,
               size: 48,
               color: AppColors.textHint,
@@ -252,7 +252,7 @@ class _MyListingsScreenState extends State<MyListingsScreen> {
             const SizedBox(height: 12),
             Text(
               _error!,
-              style: const TextStyle(color: AppColors.textSecondary),
+              style:  TextStyle(color: AppColors.textSecondary),
             ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
@@ -276,7 +276,7 @@ class _MyListingsScreenState extends State<MyListingsScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+             Icon(
               Icons.inventory_2_outlined,
               size: 56,
               color: AppColors.textHint,
@@ -286,7 +286,7 @@ class _MyListingsScreenState extends State<MyListingsScreen> {
               _selectedFilter == 'all'
                   ? 'لا توجد إعلانات بعد'
                   : 'لا توجد إعلانات بهذا النوع',
-              style: const TextStyle(
+              style:  TextStyle(
                 color: AppColors.textSecondary,
                 fontSize: 14,
               ),
@@ -435,7 +435,7 @@ class _ListingCard extends StatelessWidget {
                         fit: BoxFit.cover,
                         errorBuilder: (_, __, ___) => Container(
                           color: AppColors.background,
-                          child: const Icon(
+                          child:  Icon(
                             Icons.image_not_supported_outlined,
                             color: AppColors.textHint,
                             size: 22,
@@ -444,7 +444,7 @@ class _ListingCard extends StatelessWidget {
                       )
                     : Container(
                         color: AppColors.background,
-                        child: const Icon(
+                        child:  Icon(
                           Icons.image_outlined,
                           color: AppColors.textHint,
                           size: 22,
@@ -482,7 +482,7 @@ class _ListingCard extends StatelessWidget {
                   const SizedBox(height: 6),
                   Text(
                     product.title,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                       color: AppColors.textPrimary,
@@ -508,7 +508,7 @@ class _ListingCard extends StatelessWidget {
               children: [
                 IconButton(
                   visualDensity: VisualDensity.compact,
-                  icon: const Icon(
+                  icon:  Icon(
                     Icons.edit_outlined,
                     size: 20,
                     color: AppColors.primary,
@@ -517,7 +517,7 @@ class _ListingCard extends StatelessWidget {
                 ),
                 IconButton(
                   visualDensity: VisualDensity.compact,
-                  icon: const Icon(
+                  icon:  Icon(
                     Icons.delete_outline,
                     size: 20,
                     color: AppColors.error,
@@ -606,7 +606,7 @@ class _EditListingScreenState extends State<EditListingScreen> {
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           content: Text('تم حفظ التعديلات'),
           backgroundColor: AppColors.success,
         ),
@@ -614,7 +614,7 @@ class _EditListingScreenState extends State<EditListingScreen> {
       Navigator.pop(context, true);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           content: Text('فشل حفظ التعديلات'),
           backgroundColor: AppColors.error,
         ),
@@ -629,11 +629,11 @@ class _EditListingScreenState extends State<EditListingScreen> {
       fillColor: AppColors.surface,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.border),
+        borderSide:  BorderSide(color: AppColors.border),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.borderFocus, width: 1.5),
+        borderSide:  BorderSide(color: AppColors.borderFocus, width: 1.5),
       ),
     );
   }
@@ -730,7 +730,7 @@ class _EditListingScreenState extends State<EditListingScreen> {
                   ),
                 ),
                 child: _isLoading
-                    ? const SizedBox(
+                    ?  SizedBox(
                         width: 22,
                         height: 22,
                         child: CircularProgressIndicator(
@@ -738,7 +738,7 @@ class _EditListingScreenState extends State<EditListingScreen> {
                           strokeWidth: 2.5,
                         ),
                       )
-                    : const Text(
+                    :  Text(
                         'حفظ التعديلات',
                         style: TextStyle(
                           color: AppColors.textOnPrimary,

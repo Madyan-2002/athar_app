@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               builder: (_) => const OtherScreen(),
                             ),
                           ),
-                          child: const Text(
+                          child:  Text(
                             'عرض الكل',
                             style: TextStyle(
                               color: AppColors.primary,
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
             title: 'التبرعات',
             subtitle: 'ساهم بمبلغ أو غرض\nوكن جزءًا من الخير',
             icon: Icons.volunteer_activism_rounded,
-            colors: const [AppColors.primaryDark, AppColors.primary],
+            colors:  [AppColors.primaryDark, AppColors.primary],
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const DonationScreen()),
