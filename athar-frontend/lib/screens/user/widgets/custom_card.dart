@@ -43,9 +43,23 @@ class CustomCard extends StatelessWidget {
     }
   }
 
+  String _typeLabel() {
+    switch (product.type) {
+      case 'sell':
+        return 'للبيع';
+      case 'donation':
+        return 'تبرع';
+      case 'job':
+        return 'وظيفة';
+      default:
+        return 'أخرى';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final valueText = _valueText();
+    final typeColor = _typeColor();
     final isFavorite = context.select<FavoriteProvider, bool>(
       (p) => p.isFavorite(product.id),
     );
@@ -57,77 +71,96 @@ class CustomCard extends StatelessWidget {
           builder: (context) => ProductDetailsScreen(product: product),
         ),
       ),
-      child: Card(
-        elevation: 10, 
-        color: AppColors.surface,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: AppColors.border.withOpacity(0.5), width: 1),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 16,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
-        clipBehavior: .antiAlias, 
+        clipBehavior: Clip.antiAlias,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Stack(
+                fit: StackFit.expand,
                 children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: product.images.isNotEmpty
-                        ? Image.network(
-                            ProductCard.getImageUrl(product.images.first),
-                            fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) => Container(
-                              color: AppColors.background,
-                              child:  Icon(
-                                Icons.image_not_supported_outlined,
-                                color: AppColors.textHint,
-                              ),
-                            ),
-                          )
-                        : Container(
-                            color: AppColors.background,
-                            child:  Icon(
-                              Icons.image_outlined,
-                              color: AppColors.textHint,
-                            ),
+                  // الصورة
+                  product.images.isNotEmpty
+                      ? Image.network(
+                          ProductCard.getImageUrl(product.images.first),
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => _ImagePlaceholder(
+                            icon: Icons.image_not_supported_outlined,
                           ),
+                        )
+                      : const _ImagePlaceholder(icon: Icons.image_outlined),
+
+                  // تدرج خفيف أسفل الصورة يحسّن وضوح شارة النوع
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: 44,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.black.withOpacity(0),
+                            Colors.black.withOpacity(0.35),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
+
+                  // شارة نوع الإعلان
+                  Positioned(
+                    bottom: 8,
+                    right: 10,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 9,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: typeColor.withOpacity(0.92),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        _typeLabel(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10.5,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // زر المفضلة
                   Positioned(
                     top: 10,
                     right: 10,
-                    child: GestureDetector(
+                    child: _FavoriteButton(
+                      isFavorite: isFavorite,
                       onTap: () =>
                           context.read<FavoriteProvider>().toggle(product.id),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.15),
-                              blurRadius: 6,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          size: 18,
-                          color: isFavorite
-                              ? AppColors.error
-                              : AppColors.textSecondary,
-                        ),
-                      ),
                     ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -146,10 +179,12 @@ class CustomCard extends StatelessWidget {
                     const SizedBox(height: 6),
                     Text(
                       valueText,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
-                        color: _typeColor(),
+                        color: typeColor,
                       ),
                     ),
                   ],
@@ -157,6 +192,61 @@ class CustomCard extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ImagePlaceholder extends StatelessWidget {
+  const _ImagePlaceholder({required this.icon});
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: AppColors.background,
+      child: Center(
+        child: Icon(icon, color: AppColors.textHint, size: 32),
+      ),
+    );
+  }
+}
+
+class _FavoriteButton extends StatelessWidget {
+  const _FavoriteButton({required this.isFavorite, required this.onTap});
+
+  final bool isFavorite;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(7),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.12),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          transitionBuilder: (child, animation) =>
+              ScaleTransition(scale: animation, child: child),
+          child: Icon(
+            isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+            key: ValueKey(isFavorite),
+            size: 17,
+            color: isFavorite ? AppColors.error : AppColors.textSecondary,
+          ),
         ),
       ),
     );

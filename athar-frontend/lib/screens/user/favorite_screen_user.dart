@@ -232,7 +232,7 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
               icon: Icons.wifi_off_rounded,
               color: AppColors.textHint,
             ),
-            const SizedBox(height: 16),
+             SizedBox(height: 16),
             Text(
               _error!,
               style:  TextStyle(
@@ -297,8 +297,8 @@ class _FavoriteScreenUserState extends State<FavoriteScreenUser> {
         padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 14,
-          crossAxisSpacing: 14,
+          mainAxisSpacing: 18,
+          crossAxisSpacing: 18,
           childAspectRatio: 0.72,
         ),
         itemCount: products.length,

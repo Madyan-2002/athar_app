@@ -1,4 +1,5 @@
 import 'package:alkher/providers/product_provider.dart';
+import 'package:alkher/screens/user/all_ads_screen.dart';
 import 'package:alkher/screens/user/buy_screen.dart';
 import 'package:alkher/screens/user/donation_screen.dart';
 import 'package:alkher/screens/user/jobs_screen.dart';
@@ -51,19 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const SectionTitle(title: 'أحدث الإعلانات'),
-                        TextButton(
-                          onPressed: () => Navigator.push(
+                        _ViewAllButton(
+                          onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => const OtherScreen(),
-                            ),
-                          ),
-                          child:  Text(
-                            'عرض الكل',
-                            style: TextStyle(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                              builder: (_) => const AllAdsScreen(),
                             ),
                           ),
                         ),
@@ -123,7 +116,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              // ── جديد: بطاقة الاستكشاف تحت الشراء والوظائف ──
               SmallCategoryCard(
                 title: 'الاستكشاف',
                 icon: Icons.explore_rounded,
@@ -137,6 +129,48 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// زر "عرض الكل" — بشكل شريحة (pill) خفيفة بدل نص لينك عادي،
+/// عشان يبين بوضوح إنه قابل للضغط
+class _ViewAllButton extends StatelessWidget {
+  const _ViewAllButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: AppColors.primary.withOpacity(0.1),
+      borderRadius: BorderRadius.circular(20),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+               Text(
+                'عرض الكل',
+                style: TextStyle(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12.5,
+                ),
+              ),
+              const SizedBox(width: 3),
+               Icon(
+                Icons.arrow_back_ios_rounded,
+                size: 11,
+                color: AppColors.primary,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

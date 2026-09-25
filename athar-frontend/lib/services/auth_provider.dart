@@ -42,11 +42,24 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteAccount() async {
-  // TODO: بدّل هذا بنداء API الفعلي لما يجهز الباك اند
-  // مثال متوقع: await _apiService.delete('/user/account');
-  await logoutUser();
-}
+  // ── حذف الحساب (يتطلب إعادة إدخال كلمة المرور للتأكيد) ──────
+  // لأمان إضافي، نطلب كلمة المرور الحالية قبل تنفيذ الحذف، حتى
+  // يتأكد السيرفر إن صاحب الحساب فعلياً هو من يطلب الحذف.
+  Future<void> deleteAccount({required String password}) async {
+    if (_loginResponse == null) {
+      throw Exception('لا يوجد مستخدم مسجّل دخول حالياً');
+    }
+
+    // TODO: بدّل هذا بنداء API الفعلي لما يجهز الباك اند، مثال متوقع:
+    // await _authService.deleteAccount(
+    //   token: _loginResponse!.token,
+    //   password: password,
+    // );
+    // السيرفر هو المسؤول عن التحقق من صحة كلمة المرور قبل الحذف الفعلي،
+    // ولو كانت خاطئة يرجع خطأ يُعرض للمستخدم عبر نفس آلية catch الموجودة.
+
+    await logoutUser();
+  }
 
   // ── تحديث الملف الشخصي (اسم/إيميل/صورة) ──────
   Future<void> updateProfile({

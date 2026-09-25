@@ -90,7 +90,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         left: 20,
         right: 20,
       ),
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: AppColors.primaryGradient,
           begin: Alignment.topRight,
@@ -108,7 +108,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             onTap: () => Navigator.pop(context),
           ),
           const SizedBox(width: 14),
-           Text(
+          Text(
             'تعديل الملف الشخصي',
             style: TextStyle(
               color: AppColors.textOnPrimary,
@@ -125,7 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget _buildLabel(String text) {
     return Text(
       text,
-      style:  TextStyle(
+      style: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: AppColors.textSecondary,
@@ -147,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         const SizedBox(width: 8),
         Text(
           text,
-          style:  TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: AppColors.textSecondary,
@@ -174,18 +174,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  // البريد الإلكتروني معطّل (شكلياً فقط) — مو قابل للتعديل، والمستخدم
+  // ما بيقدر يضغط عليه أو يفتح الكيبورد منه، بس القيمة الحالية تبين طبيعي
   Widget _buildEmailField() {
-    return CustomTextField(
-      controller: _emailController,
-      hint: 'example@email.com',
-      icon: Icons.mail_outline_rounded,
-      keyboardType: TextInputType.emailAddress,
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return 'الرجاء إدخال البريد الإلكتروني';
-        }
-        return null;
-      },
+    return Opacity(
+      opacity: 0.55,
+      child: AbsorbPointer(
+        absorbing: true,
+        child: CustomTextField(
+          controller: _emailController,
+          hint: 'example@email.com',
+          icon: Icons.mail_outline_rounded,
+          keyboardType: TextInputType.emailAddress,
+          validator: (value) {
+            if (value == null || value.trim().isEmpty) {
+              return 'الرجاء إدخال البريد الإلكتروني';
+            }
+            return null;
+          },
+        ),
+      ),
     );
   }
 
@@ -256,7 +264,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     AppColors.primaryDark.withOpacity(0.5),
                     AppColors.primary.withOpacity(0.5),
                   ]
-                :  [AppColors.primaryDark, AppColors.primary],
+                : [AppColors.primaryDark, AppColors.primary],
           ),
           boxShadow: _isLoading
               ? []
@@ -276,7 +284,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             onTap: _isLoading ? null : _handleSave,
             child: Center(
               child: _isLoading
-                  ?  SizedBox(
+                  ? SizedBox(
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
@@ -284,7 +292,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         strokeWidth: 2.5,
                       ),
                     )
-                  :  Text(
+                  : Text(
                       'حفظ التغييرات',
                       style: TextStyle(
                         color: AppColors.textOnPrimary,
